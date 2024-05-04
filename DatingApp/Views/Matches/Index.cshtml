@@ -1,0 +1,42 @@
+﻿@model List<DatingApp.DTOs.MemberDTo>
+
+<link href="~/cardview/cardview.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-2 mb-3">
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <img src="@item.PhotoUrl" alt="@item.KnownAs" class="card-img-top">
+
+                        <ul class="list-inline member-icons animate text-center">
+                            <li class="list-inline-item">
+                                <a href="@Url.Action("UserDetails", "Matches", new { username = item.UserName })">
+                                    <i class="fa fa-user fa-2x"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-heart fa-2x"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-envelope fa-2x"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body p-1">
+                        <h5 class="card-title text-center mb-1">
+                            <i class="fa fa-user me-2"></i>
+                            @item.KnownAs
+                        </h5>
+                        <p class="card-text card-muted text-center">@item.Country</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

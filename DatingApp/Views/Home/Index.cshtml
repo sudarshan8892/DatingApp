@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    var userName = Context.Session.GetString("UserName");
+}
+@if (string.IsNullOrEmpty(userName))
+{
+    <div class="container mt-5">
+        <div style="text-align:center" id="Register_hidden">
+            <h1>Find your match</h1>
+            <p class="lead">come  on view  into  the  matches....... all you  need  to do  sign Up!</p>
+            <div class="text-center">
+                <button onclick="window.location.href='/Home/Register'" class="btn btn-info">Register</button>
+                <button class="btn btn-info ">learn more</button>
+            </div>
+        </div>
+    </div>
+}

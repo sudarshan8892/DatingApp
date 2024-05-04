@@ -1,0 +1,98 @@
+﻿@model DatingApp.DTOs.MemberDTo
+
+@{
+    ViewData["Title"] = "UserDetails";
+}
+<script src="~/tabs/jquery.min.js"></script>
+
+<link href="/tabs/detailstabs.css" rel="stylesheet" />
+<script src="/tabs/detailstabs.js"></script>
+
+<link href="~/tabs/gallerie/css/h-smart-thumbnail.css" rel="stylesheet" />
+<script src="~/tabs/gallerie/js/h-smart-thumbnail.js"></script>
+<script src="~/tabs/gallerie/js/h-smart-thumbnail.min.js"></script>
+
+
+
+
+<div class="row mt-4">
+    <div class="col-3">
+        <div class="card">
+            <img src="@Model.PhotoUrl" alt="@Model.KnownAs" class="card-img-top img-thumbnail" />
+            <div class="card-body">
+                <div>
+                    <strong>Location:</strong>
+                    <p>@Model.City, @Model.Country</p>
+                </div>
+                <div>
+                    <strong>Age:</strong>
+                    <p>@Model.Age</p>
+                </div>
+                <div>
+                    <strong>Last Active:</strong>
+                    <p>@Model.LastActive</p>
+                </div>
+
+                <div>
+                    <strong>Member Since:</strong>
+                    <p>@Model.Created</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex btn-group">
+                    <button class="btn btn-primary">Like</button>
+                    <button class="btn btn-success">Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="@Model.KnownAs">About @Model.KnownAs </div>
+                <div class="tab" data-tab="Interests">Interests</div>
+                <div class="tab" data-tab="Photo">Photos</div>
+                <div class="tab" data-tab="Messages">Messages</div>
+
+            </div>
+            <div id="@Model.KnownAs" class="tabcontent active">
+                <h4 style="text-decoration:underline">Description</h4>
+                <p>@Model.Introduction</p>
+                <h4 style="text-decoration:underline">Looking For</h4>
+                <p>@Model.LookingFor</p>
+
+            </div>
+            <div id="Interests" class="tabcontent">
+                <h4>Interests</h4>
+                <p>@Model.Interests</p>
+            </div>
+            <div id="Photo" class="tabcontent">
+
+                <div class="example">
+                    <ul>
+                        <li>
+                            <img src="@Model.PhotoUrl">
+                        </li>
+                        <li>
+                            <img src="@Model.PhotoUrl">
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div id="Messages" class="tabcontent">
+
+                <p>message will go here</p>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+/* JS for Photo gallery */
+<script>
+ $('.example').hSmartThumbnail();
+</script>

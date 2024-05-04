@@ -1,0 +1,23 @@
+﻿.my-drop-zone {
+    border: dotted 3px lightgray;
+}
+
+.nv-file-over {
+    border: dotted 3px red;
+}
+
+.another-file-over-class {
+    border: dotted 3px green;
+}
+
+html, body {
+    height: 100%;
+}
+
+.progress {
+    height: 20px;
+    margin-bottom: 10px;
+}
+input[type=file]{
+    color:transparent
+}

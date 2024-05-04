@@ -1,0 +1,171 @@
+﻿@using Newtonsoft.Json
+@model DatingApp.DTOs.MemberDTo
+
+<script src="~/tabs/jquery.min.js"></script>
+<link href="~/tabs/detailstabs.css" rel="stylesheet" />
+<script src="~/tabs/detailstabs.js"></script>
+<script src="~/js/profileedit/editmembers.js"></script>
+<script src="~/js/profileedit/uploadfile.js"></script>
+<link href="~/css/uploadfile.css" rel="stylesheet" />
+
+<div class="row mt-3">
+    <div class="col-4">
+        <h1>your profile</h1>
+    </div>
+    <div class="col-8">
+        <div class="alert alert-info pb-0" id="Alertcheck" style="display:none">
+            <p>
+                <strong>
+                    Information:
+                </strong>
+                you have made chnages! any unsaved chnages  will be lost
+            </p>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="@Model.PhotoUrl" alt="sudarshan" class="card-img-top img-thumbnail" />
+            <div class="card-body">
+                <div>
+                    <strong>Location:</strong>
+                    <p>@Model.City, @Model.Country</p>
+                </div>
+                <div>
+                    <strong>Age:</strong>
+                    <p>@Model.Age</p>
+                </div>
+                <div>
+                    <strong>Last Active:</strong>
+                    <p>@Model.LastActive</p>
+                </div>
+
+                <div>
+                    <strong>Member Since:</strong>
+                    <p>@Model.Created</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" onclick="submitEditForm()" class="btn btn-success col-12" id="submitButton" disabled>Save changes</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="tab1">About</div>
+                <div class="tab" data-tab="photos">Photo Edit</div>
+
+            </div>
+            <div id="tab1" class="tabcontent active">
+                <form id="Editmember" data-ajax="true" data-ajx-mehtod="post" data-ajax-url="@Url.Action("ProfileEdit","Home")">
+                    <h4 class="mt-2">Description</h4>
+                    <textarea class="form-control" name="Introduction" rows="6">@Model.Introduction</textarea>
+                    <h4 class="mt-2">Looking For</h4>
+                    <textarea class="form-control" name="LookingFor" rows="6">@Model.LookingFor</textarea>
+                    <h4 class="mt-2">Interests</h4>
+                    <textarea class="form-control" name="Interests" rows="6">@Model.Interests</textarea>
+                    <h4 class="mt-2">
+                        Locations
+                        <div class="d-flex flex-row align-items-center">
+                            <label asp-for="City">City:</label>
+                            <input asp-for="City" class="form-control mx-2" name="City" />
+
+                            <label asp-for="Country">Country:</label>
+                            <input asp-for="Country" class="form-control mx-2" name="Country" />
+                        </div>
+                    </h4>
+
+                </form>
+
+
+            </div>
+            <div id="photos" class="tabcontent">
+
+                <div class="row mb-3">
+                    @foreach (var photo in Model.Photos)
+                    {
+
+                        <div class="col-md-3 mb-1 mt-3">
+                               <img src="@Html.Raw(photo.Url)" alt="photo of Users" class="img-thumbnail mb-1">
+                                <div class="text-center justify-content-between align-items-center">
+                                    <button  class="btn @(photo.IsMain ? "btn-success" : "btn-outline-success")"
+                                    @(photo.IsMain ? "disabled" : "")
+                                        onclick="SetMainPhoto('@photo.Url', '@photo.Id', '@photo.IsMain')">
+                                    Main
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
+                                </div>
+                            
+                        </div>
+                    }
+
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                        <h4>Add Photo</h4>
+                        <div class="card-bg-faded p-3 text-center mb-3 my-drop-zone" id="baseDropZone">
+                            <i class="fa fa-upload fa-3x"></i>
+                        </div>
+
+
+                        Multiple
+                        <input type="file" id="multipleFileSelect" multiple /><br />
+
+                        Single
+                        <input type="file" id="singleFileSelect" />
+                    </div>
+                    <div class="col-md-9 mt-3 Upload-queue" style="margin-bottom: 40px">
+                        <h3>Upload queue</h3>
+                        <p>Queue length: <span id="queueLength">0</span></p>
+                        <table class="table" id="uploadTable">
+                            <thead>
+                                <tr>
+                                    <th width="50%">Name</th>
+                                    <th>Size</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="uploadTableBody">
+                            </tbody>
+                        </table>
+                        <div>
+                            <div class="mt-2">
+                                Queue progress:
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" id="queueProgressBar"></div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-s" id="uploadAllBtn">
+                                <span class="fa fa-upload"></span> Upload all
+                            </button>
+                            <button type="button" class="btn btn-warning btn-s" id="cancelAllBtn" disabled>
+                                <span class="fa fa-ban"></span> Cancel all
+                            </button>
+                            <button type="button" class="btn btn-danger btn-s" id="clearQueueBtn">
+                                <span class="fa fa-trash"></span> Remove all
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

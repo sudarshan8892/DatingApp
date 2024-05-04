@@ -1,0 +1,220 @@
+:root {
+  --li-border-color: red;
+  --li-after-color: red;
+  --main-border-color: #DDD;
+  --bg-icon-arrow: #fff;
+}
+
+.h-smart-thumbnail-container{
+	max-width: 100%;
+	padding: 5px;
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail{
+	height: 50px;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail li{
+	float: left;
+	position: relative;
+	margin-left: 5px;
+	height: 50px;
+	width: 50px;
+	text-align: center;
+	border: 1px solid transparent;
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail li:hover{
+	border: 1px solid var(--li-border-color);
+	cursor: pointer;
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail li:after{
+	content: '';
+    display: none;
+    position: absolute;
+    left: 15px;
+    bottom: -13px;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    border: transparent 6px dashed;
+    border-top: 6px solid var(--li-after-color);
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail li.active{
+	border: 1px solid var(--li-border-color);
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail li.active:after{
+	display: block;
+}
+
+.h-smart-thumbnail-container ul.h-smart-thumbnail li img{
+	height: 48px;
+	max-width: 48px;
+	border-radius: 3px;
+}
+
+.h-smart-thumbnail-container .h-big-pic-view-main{
+	max-width: 452px;
+	margin-top: 10px;
+	position: relative;
+	display: none;
+	border: 1px solid var(--main-border-color);
+}
+
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-image{
+	overflow: hidden;
+}
+
+.h-smart-thumbnail-container .h-big-pic-view-main img{
+	max-height: 400px;
+	max-width: 100%;
+	width: 440px;
+}
+
+.h-smart-thumbnail-container .h-big-pic-view-main .h-arrow{
+	position: absolute;
+	top: 45%;
+	display: none;
+	font-size: 2em;
+	padding: 10px 5px;
+	background: var(--bg-icon-arrow);
+	cursor: pointer;
+}
+.h-smart-thumbnail-container .h-big-pic-view-main .h-arrow.icon-angle-left{
+	left: 0;
+}
+.h-smart-thumbnail-container .h-big-pic-view-main .h-arrow.icon-angle-right{
+	right: 0;
+}
+
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-header{
+	padding: 2px;
+	border-bottom: 1px solid var(--main-border-color);
+}
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-header .icon-close{
+	float: right;
+}
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-header .icon{
+	display: inline-block;
+}
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-header .icon:hover{
+	cursor: pointer;
+}
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-header .icon-rotate-right{
+	margin-left: 10px;
+}
+
+.h-smart-thumbnail-container .h-big-pic-view-main .h-big-pic-view-image{
+	padding: 5px;
+	text-align: center;
+}
+
+/*
+* image rotation angle
+*/
+.h-angle-360deg{
+	transform: rotate(360deg);
+	-ms-transform: rotate(360deg); /* IE 9 */
+	-moz-transform: rotate(360deg); /* Firefox */
+	-webkit-transform: rotate(360deg); /* Safari and Chrome */
+	-o-transform: rotate(360deg); /* Opera */
+}
+
+.h-angle-270deg{
+	transform: rotate(270deg);
+	-ms-transform: rotate(270deg); /* IE 9 */
+	-moz-transform: rotate(270deg); /* Firefox */
+	-webkit-transform: rotate(270deg); /* Safari and Chrome */
+	-o-transform: rotate(270deg); /* Opera */
+}
+
+.h-angle-180deg{
+	transform: rotate(180deg);
+	-ms-transform: rotate(180deg); /* IE 9 */
+	-moz-transform: rotate(180deg); /* Firefox */
+	-webkit-transform: rotate(180deg); /* Safari and Chrome */
+	-o-transform: rotate(180deg); /* Opera */
+}
+
+.h-angle-90deg{
+	transform: rotate(90deg);
+	-ms-transform: rotate(90deg); /* IE 9 */
+	-moz-transform: rotate(90deg); /* Firefox */
+	-webkit-transform: rotate(90deg); /* Safari and Chrome */
+	-o-transform: rotate(90deg); /* Opera */
+}
+
+.h-angle-0deg{
+	transform: rotate(0deg);
+	-ms-transform: rotate(0deg); /* IE 9 */
+	-moz-transform: rotate(0deg); /* Firefox */
+	-webkit-transform: rotate(0deg); /* Safari and Chrome */
+	-o-transform: rotate(0deg); /* Opera */
+}
+
+/*
+* icons
+*/
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "h-smart-icon";
+  src:url("../fonts/h-smart-icon.eot");
+  src:url("../fonts/h-smart-icon.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/h-smart-icon.woff") format("woff"),
+    url("../fonts/h-smart-icon.ttf") format("truetype"),
+    url("../fonts/h-smart-icon.svg#h-smart-icon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "h-smart-icon" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "h-smart-icon" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-rotate-right:before {
+  content: "\61";
+}
+.icon-rotate-left:before {
+  content: "\62";
+}
+.icon-angle-right:before {
+  content: "\63";
+}
+.icon-angle-left:before {
+  content: "\64";
+}
+.icon-close:before {
+  content: "\65";
+}
