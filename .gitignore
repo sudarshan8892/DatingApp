@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/DatingApp/appsettings.json
+/DatingApp/appsettings.Development.json
+/DatingApp/appsettings.json
+/DatingApp/appsettings.Development.json
