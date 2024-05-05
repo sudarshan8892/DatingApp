@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     // Initialize variables
     var queueLength = 0;
     var queueProgress = 0;
@@ -131,20 +129,24 @@ $(document).ready(function () {
             data: formData,
             contentType: false,
             processData: false,
+            dataType:'html',
 
             success: function (result) {
+                /*
                 var newPhotoHtml = `
                         <div class="col-md-3 mb-1 mt-3">
                             <img src="${result.url}" alt="photo of Users" class="img-thumbnail mb-1">
                             <div class="text-center justify-content-between align-items-center">
-                                <button class="btn ${result.isMain ? 'btn-success' : 'btn-outline-success'}" ${result.isMain ? 'disabled' : ''}>
+                                <button class="btn ${result.isMain ? 'btn-success' : 'btn-outline-success'}" ${result.isMain ? 'disabled' : ''}
+                                  onclick="SetMainPhoto('@photo.Url', '@photo.Id', '@photo.IsMain')">
                                     Main
                                 </button>
                                 <button class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                     `;
-                $('#photos .row.mb-3').append(newPhotoHtml);
+                $('#photos .row.mb-3').append(newPhotoHtml);*/
+                $("#upload").html(result);
                 toastr.success('File uploaded successfully');
                 queueLength = 0;
                 queueProgress = 0;
@@ -164,27 +166,31 @@ $(document).ready(function () {
 });
 
 
-function SetMainPhoto(photoUrl, photoId, isMain) {
-    var photoData = {
-        Id: photoId,
+function SetMainPhoto(photoUrl, photoId, isMain, button) {
+    var data = {
+        Id: parseInt(photoId),
         Url: photoUrl,
-        IsMain: isMain
+        IsMain: Boolean(isMain)
     };
-    var jsonData = JSON.stringify(photoData);
-    console.log(jsonData);
-
+    button.disabled = true;
     $.ajax({
         url: '/Home/SetMainPhoto',
         type: 'POST',
+        dataType: 'html',
         contentType: 'application/json',
-        data: jsonData,
+        data: JSON.stringify((data)),
+      
         success: function (response) {
-            // Handle success response if needed
-            console.log('Photo set as main successfully');
+            
+            $('#photoContainer').html(response)
+            toastr.success('Photo set as main successfully');
+            button.disabled = false;
         },
+           
+        
         error: function (xhr, status, error) {
-            // Handle error if needed
-            console.error('Error setting photo as main:', error);
+            debugger
+            toastr.error(xhr.responseText);
         }
     });
 }

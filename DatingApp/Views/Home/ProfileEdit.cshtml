@@ -1,4 +1,4 @@
-﻿@using Newtonsoft.Json
+﻿
 @model DatingApp.DTOs.MemberDTo
 
 <script src="~/tabs/jquery.min.js"></script>
@@ -8,7 +8,7 @@
 <script src="~/js/profileedit/uploadfile.js"></script>
 <link href="~/css/uploadfile.css" rel="stylesheet" />
 
-<div class="row mt-3">
+<div class="row mt-3" id="photoContainer">
     <div class="col-4">
         <h1>your profile</h1>
     </div>
@@ -84,23 +84,26 @@
             </div>
             <div id="photos" class="tabcontent">
 
-                <div class="row mb-3">
-                    @foreach (var photo in Model.Photos)
+                <div class="row mb-3" id="upload" >
+                   
+                    <partial name="_PhotoPartial" />
+                  @*   @foreach (var photo in Model.Photos)
                     {
 
                         <div class="col-md-3 mb-1 mt-3">
-                               <img src="@Html.Raw(photo.Url)" alt="photo of Users" class="img-thumbnail mb-1">
+                                <img src="@photo.Url"alt="photo of Users" class="img-thumbnail mb-1">
                                 <div class="text-center justify-content-between align-items-center">
-                                    <button  class="btn @(photo.IsMain ? "btn-success" : "btn-outline-success")"
+                                    <button  type="submit" class="btn @(photo.IsMain ? "btn-success" : "btn-outline-success")"
                                     @(photo.IsMain ? "disabled" : "")
                                         onclick="SetMainPhoto('@photo.Url', '@photo.Id', '@photo.IsMain')">
-                                    Main
+                                        Main
                                     </button>
                                     <button type="button" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
                                 </div>
-                            
+                           
                         </div>
-                    }
+
+                    } *@
 
                 </div>
 
@@ -169,3 +172,4 @@
     }
 }
 
+@*     onclick="SetMainPhoto('@photo.Url', '@photo.Id', '@photo.IsMain')" *@

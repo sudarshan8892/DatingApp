@@ -1,24 +1,30 @@
-﻿using CloudinaryDotNet.Actions;
+﻿using AutoMapper;
 using DatingApp.DTOs;
 using DatingApp.Helpers;
+using DatingApp.Interfaces;
 using DatingApp.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+using DatingApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 using WebAPIDatingAPP.Entities;
 
+
 namespace DatingApp.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly HttpClient _client;
+        private readonly IMapper _Mapper;
+        private readonly IUserService userService;
+        
 
-        public HomeController(HttpClient client)
+        public HomeController(HttpClient client, IMapper mapper, IUserService  user)
         {
             _client = client;
+            _Mapper = mapper;
+            userService = user;
 
         }
 
@@ -66,7 +72,7 @@ namespace DatingApp.Controllers
             return RedirectToAction("Error");
 
         }
-
+        [HttpGet]
         public async Task<IActionResult> ProfileEdit(string username)
         {
             if (!TryGetToken(out string token))
@@ -116,37 +122,51 @@ namespace DatingApp.Controllers
                 formData.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
             });
             var response = await _client.PostAsync("AppUsers/Add-photo", formData);
-            await Task.Delay(2000);
-            if (response.IsSuccessStatusCode)
-            {
-                var photos = await response.Content.ReadAsStringAsync();
-                var photo = JsonConvert.DeserializeObject<PhotoDTo>(photos);
-                return Ok(photo);
-            }
+            LoginDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
+            if (LoginDto == null) return NotFound("UserSessionData session");
+            var appUsers = await userService.GetUserByUserNameAsync(LoginDto.UserName, token);
 
-            return View("Error");
+            return PartialView("_PhotoPartial", appUsers);
+
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    //var photos = await response.Content.ReadAsStringAsync();
+            //    //var photo = JsonConvert.DeserializeObject<PhotoDTo>(photos);
+            //}
+
+           // return View("Error");
         }
         [HttpPost]
-        public async Task<IActionResult>SetMainPhoto(PhotoDTo photoDTo)
+        public async Task<IActionResult> SetMainPhoto([FromBody] PhotoDTo photoDTo)
         {
             if (!TryGetToken(out string token))
                 return View("Error");
 
+
             _client.SetBearerToken(token);
-            var PhotoId = new StringContent(photoDTo.ToString(), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"AppUsers/set-Main-photo/{photoDTo.Id}", PhotoId);
+            if (photoDTo == null) return BadRequest();
+            var Photoid = new StringContent(photoDTo.ToString(), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"AppUsers/set-Main-photo/{photoDTo.Id}", Photoid);
             if (response.IsSuccessStatusCode)
             {
-                LoginDTo update = new LoginDTo
-                {
-                    PhotoUrl = photoDTo.Url
-                };
-                byte[] sessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(update));
-                HttpContext.Session.Set("UserSessionData", sessionDataBytes);
-                return Ok(response);
+                #region session
+                LoginDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
+                if (LoginDto == null) return NotFound("UserSessionData session");
+                LoginDto.PhotoUrl = photoDTo.Url;
+                byte[] updatedSessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(LoginDto));
+                HttpContext.Session.Set("UserSessionData", updatedSessionDataBytes);
+                #endregion
+
+                var appUsers = await userService.GetUserByUserNameAsync(LoginDto.UserName, token);
+                return PartialView("ProfileEdit", appUsers);
+
+              
             }
             return View();
         }
+
+
+
         public IActionResult Privacy()
         {
             return View();

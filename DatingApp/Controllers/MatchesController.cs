@@ -28,9 +28,6 @@ namespace DatingApp.Controllers
                 
                 var appUsers = JsonConvert.DeserializeObject<List<MemberDTo>>(jsonString);
 
-                //byte[] sessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(appUsers));
-                //HttpContext.Session.Set("Users", sessionDataBytes);
-
                 return View(appUsers);
 
             }

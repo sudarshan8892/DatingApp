@@ -26,7 +26,6 @@ namespace DatingApp.Controllers
             }
             catch (JsonReaderException)
             {
-                // Invalid JSON
                 return false;
             }
         }

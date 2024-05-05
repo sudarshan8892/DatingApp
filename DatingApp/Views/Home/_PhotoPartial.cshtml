@@ -1,0 +1,14 @@
+﻿@model DatingApp.DTOs.MemberDTo
+
+@foreach (var photo in Model.Photos)
+{
+    <div class="col-md-3 mb-1 mt-3">
+        <img src='@photo.Url' alt="photo of Users" class="img-thumbnail mb-1">
+        <div class="text-center justify-content-between align-items-center">
+            <button  class="btn @(photo.IsMain ? "btn-success" : "btn-outline-success")" @(photo.IsMain ? "disabled" : "") onclick="SetMainPhoto('@photo.Url', '@photo.Id', '@photo.IsMain',this)">
+                Main
+            </button>
+            <button type="button" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
+        </div>
+    </div>
+}

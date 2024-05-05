@@ -1,6 +1,8 @@
 using AutoMapper;
 using DatingApp.Apiconfig;
 using DatingApp.Controllers;
+using DatingApp.Interfaces;
+using DatingApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -28,6 +30,8 @@ builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
 builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient<IUserService, UserService>();
 
 builder.Services.AddScoped<ITokenService, TokenServices>();
 builder.Services.AddScoped<IRepository, UserRepository>();
