@@ -2,6 +2,7 @@
 using DatingApp.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebAPIDatingAPP.Entities;
 using WebAPIDatingAPP.Extension;
 using WebAPIDatingAPP.Interfaces;
@@ -99,6 +100,24 @@ namespace DatingApp.Controllers
             photo.IsMain = true;
             if (await _repository.SaveAllAsysc()) return NoContent();
             return BadRequest("Problem setting the Main photo");
+        }
+        [HttpDelete("Delete-Photo/{PhotoId}")]
+        public async Task<IActionResult> DeletePhoto( int PhotoId)
+        {
+            var user = await _repository.GetUserByNameAsync(User.GetUserName());
+
+            if (user == null) return NotFound();
+            var photo = user.Photos.FirstOrDefault(a => a.Id == PhotoId);
+            if (photo == null) return NotFound();
+            if (photo.IsMain) return BadRequest("You cannot  Delete your Main Photo");
+            if (photo.PublicId != null)
+            {
+                var result = await  _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+            user.Photos.Remove(photo);
+            if (await _repository.SaveAllAsysc()) return Ok();
+            return BadRequest("Problem deleting  photo");
         }
 
     }

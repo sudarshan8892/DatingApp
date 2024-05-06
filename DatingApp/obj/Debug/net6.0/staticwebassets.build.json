@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "a8y/y1k4tABYkEH4f2CjnoKoBE1zfLupyot2q6hU5Co=",
+  "Hash": "f8G8UG1g5wbhHGOiqU7AvDCeXFmbBS/bVfW+M1pyb8Y=",
   "Source": "DatingApp",
   "BasePath": "_content/DatingApp",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\all.min.css"
+    },
+    {
+      "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\loaders.css",
+      "SourceId": "DatingApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\",
+      "BasePath": "_content/DatingApp",
+      "RelativePath": "css/loaders.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\loaders.css"
     },
     {
       "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\site.css",

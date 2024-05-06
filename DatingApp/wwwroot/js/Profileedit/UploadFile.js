@@ -129,7 +129,7 @@
             data: formData,
             contentType: false,
             processData: false,
-            dataType:'html',
+            dataType: 'html',
 
             success: function (result) {
                 /*
@@ -162,7 +162,7 @@
     });
     updateQueueLength();
 
- 
+
 });
 
 
@@ -179,18 +179,47 @@ function SetMainPhoto(photoUrl, photoId, isMain, button) {
         dataType: 'html',
         contentType: 'application/json',
         data: JSON.stringify((data)),
-      
+
         success: function (response) {
-            
+
             $('#photoContainer').html(response)
             toastr.success('Photo set as main successfully');
             button.disabled = false;
         },
-           
-        
+
+
         error: function (xhr, status, error) {
             debugger
             toastr.error(xhr.responseText);
         }
     });
+}
+
+function DeletePhoto(photoUrl, photoId, isMain, button) {
+    debugger
+    var data = {
+        Id:parseInt(photoId),
+        UrL:photoUrl,
+        IsMain :Boolean(isMain),
+
+    };
+    button.disabled = true;
+    $.ajax({
+        data: JSON.stringify(data),
+        dataType: "html",
+        url: "/Home/Delete",
+        type: "post",
+        contentType: "application/json",
+        success: function (response) {
+            debugger
+            $('#upload').html(response)
+            toastr.success('Photo Delete successfully');
+
+        },
+        error: function (xhr, Status, Error) {
+            toastr.error(xhr.responseText)
+            button.disabled = false;
+        }
+
+    })
 }

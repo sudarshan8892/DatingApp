@@ -41,7 +41,7 @@ namespace DatingApp.Controllers
         {
 
             var response = await _client.PostAsJsonAsync("Account/register", register);
-            if (response.IsSuccessStatusCode) return RedirectToAction("Index");
+            if (response.IsSuccessStatusCode) return RedirectToAction("Index", "Login");
             return RedirectToAction("Error");
         }
         public IActionResult Login() { return View(); }
@@ -128,13 +128,7 @@ namespace DatingApp.Controllers
 
             return PartialView("_PhotoPartial", appUsers);
 
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    //var photos = await response.Content.ReadAsStringAsync();
-            //    //var photo = JsonConvert.DeserializeObject<PhotoDTo>(photos);
-            //}
-
-           // return View("Error");
+          
         }
         [HttpPost]
         public async Task<IActionResult> SetMainPhoto([FromBody] PhotoDTo photoDTo)
@@ -164,16 +158,36 @@ namespace DatingApp.Controllers
             }
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromBody] PhotoDTo photoDTo)
+        {
+            if (!TryGetToken(out string token))
+                return View("Error");
 
 
+            _client.SetBearerToken(token);
+            if (photoDTo == null) return BadRequest();
+            var Photoid = new StringContent(photoDTo.ToString(), Encoding.UTF8, "application/json");
+            var response = await _client.DeleteAsync($"AppUsers/Delete-Photo/{photoDTo.Id}");
+            if (response.IsSuccessStatusCode)
+            {
+                #region session
+                LoginDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
+                if (LoginDto == null) return NotFound("UserSessionData session");
+                #endregion
+
+                var appUsers = await userService.GetUserByUserNameAsync(LoginDto.UserName, token);
+                return PartialView("_PhotoPartial", appUsers);
+
+
+            }
+            return View();
+        }
 
         public IActionResult Privacy()
         {
             return View();
         }
-
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

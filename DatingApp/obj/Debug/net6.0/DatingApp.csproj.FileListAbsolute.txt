@@ -1,4 +1,3 @@
-D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.dll
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\appsettings.Development.json
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\appsettings.json
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DATA\UserSeedData.json
@@ -6,6 +5,8 @@ D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.staticwebassets.runt
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.exe
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.deps.json
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.runtimeconfig.json
+D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.dll
+D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.pdb
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\AutoMapper.dll
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\CloudinaryDotNet.dll
@@ -253,10 +254,9 @@ D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\staticwebassets.pack.json
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\scopedcss\bundle\DatingApp.styles.css
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\scopedcss\projectbundle\DatingApp.bundle.scp.css
-D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\DatingApp.csproj.CopyComplete
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\DatingApp.dll
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\refint\DatingApp.dll
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\DatingApp.pdb
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\DatingApp.genruntimeconfig.cache
-D:\DatingApp\DatingApp\DatingApp\bin\Debug\net6.0\DatingApp.pdb
 D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\ref\DatingApp.dll
+D:\DatingApp\DatingApp\DatingApp\obj\Debug\net6.0\DatingApp.csproj.Up2Date

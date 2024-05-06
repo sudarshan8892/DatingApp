@@ -65,6 +65,10 @@
       "PackagePath": "staticwebassets\\css\\all.min.css"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\loaders.css",
+      "PackagePath": "staticwebassets\\css\\loaders.css"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

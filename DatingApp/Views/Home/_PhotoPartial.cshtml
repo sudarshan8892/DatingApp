@@ -8,7 +8,12 @@
             <button  class="btn @(photo.IsMain ? "btn-success" : "btn-outline-success")" @(photo.IsMain ? "disabled" : "") onclick="SetMainPhoto('@photo.Url', '@photo.Id', '@photo.IsMain',this)">
                 Main
             </button>
-            <button type="button" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
+            <button type="button" 
+                class="btn btn-sm btn-danger"
+               @(photo.IsMain ? "disabled" : "")
+                    onclick="DeletePhoto('@photo.Url', '@photo.Id', '@photo.IsMain',this)">
+                <i class="
+            fas fa-trash"></i></button>
         </div>
     </div>
 }
