@@ -8,19 +8,27 @@ html {
   }
 }
 
-html {
+/*html {
   position: relative;
   min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
+}*/
 
 .login-button {
     float: right;
 }
+/* Custom styles for dropdown menu */
+.dropdown-menu {
+    background-color: #fff; 
+    border: 1px solid rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 5px;
+}
 
+.dropdown-item {
+    color: #333 ;
+}
 
+    .dropdown-item:hover {
+        background-color: #f0f0f0; 
+    }
 

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using DatingApp.DTOs;
+using DatingApp.Extension;
+using DatingApp.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -24,10 +26,16 @@ namespace DatingApp.Controllers
         }
         [HttpGet]
         //api/AppUsers
-        public async Task<ActionResult<IEnumerable<MemberDTo>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDTo>>> GetUsers([FromQuery] UserParams userParams)
         {
-
-            var user = (await _repository.GetMemberAsync());
+            var CurrentUsers = await _repository.GetUserByNameAsync(User.GetUserName());
+            userParams.CurrentUserName = CurrentUsers.UserName;
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = CurrentUsers.Gender == "male" ? "female" : "male";
+            }
+            var user = (await _repository.GetMemberAsync(userParams));
+            Response.AddPaginationHeader(new PaginationHeader(user.CurrentPage, user.PageSize, user.TotalCount, user.TotalPage));
             return (Ok(user));
 
         }
@@ -102,7 +110,7 @@ namespace DatingApp.Controllers
             return BadRequest("Problem setting the Main photo");
         }
         [HttpDelete("Delete-Photo/{PhotoId}")]
-        public async Task<IActionResult> DeletePhoto( int PhotoId)
+        public async Task<IActionResult> DeletePhoto(int PhotoId)
         {
             var user = await _repository.GetUserByNameAsync(User.GetUserName());
 
@@ -112,7 +120,7 @@ namespace DatingApp.Controllers
             if (photo.IsMain) return BadRequest("You cannot  Delete your Main Photo");
             if (photo.PublicId != null)
             {
-                var result = await  _photoService.DeletePhotoAsync(photo.PublicId);
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
                 if (result.Error != null) return BadRequest(result.Error.Message);
             }
             user.Photos.Remove(photo);

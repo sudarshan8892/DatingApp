@@ -5,14 +5,28 @@
         <div class="col-md-4">
             <form asp-action="Login" Data-ajax="true" data-ajax-method="post" data-ajax-url=@Url.Action("Home","Login")>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserName" class="control-label"></label>
-                    <input asp-for="UserName" name="Username" class="form-control" />
+                <div>
+                    <label asp-for="UserName"></label>
+                    <div class="input-group mb-1">
+                        <input asp-for="UserName" type="text" name="UserName" class="form-control" placeholder="UserName" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" type="password" name="Password" class="form-control" />
+                <div>
+                    <label asp-for="Password"></label>
+                    <div class="input-group  mb-1">
+                        <input asp-for="Password" type="password" name="Password" class="form-control" placeholder="Password" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 

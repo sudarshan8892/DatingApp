@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DatingApp.DTOs;
+using DatingApp.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 using WebAPIDatingAPP.Entities;
@@ -49,7 +50,7 @@ namespace WebAPIDatingAPP.DATA
 
         }
 
-
+        //member
 
         public async Task<MemberDTo> GetMemberByNameAsync(string Name)
         {
@@ -69,10 +70,17 @@ namespace WebAPIDatingAPP.DATA
 
         }
 
-        public async Task<IEnumerable<MemberDTo>> GetMemberAsync()
+        public async Task<PageList<MemberDTo>> GetMemberAsync(UserParams userParams)
         {
-            return await _context.AppUsers
-                .ProjectTo<MemberDTo>(_mapper.ConfigurationProvider).ToListAsync();
+            var query = _context.AppUsers.AsQueryable();
+
+            query = query.Where(u => u.UserName != userParams.CurrentUserName);
+            query = query.Where(u => u.Gender != userParams.Gender);
+
+
+            return await PageList<MemberDTo>.CreateAsync(query.AsNoTracking()
+            .ProjectTo<MemberDTo>(_mapper.ConfigurationProvider),
+            userParams.PageNumber, userParams.PageSize);
         }
     }
 }

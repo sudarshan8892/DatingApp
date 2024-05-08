@@ -53,6 +53,7 @@
     });
 
 
+
     // Function to handle file selection
     $("#multipleFileSelect").change(function () {
         var files = $(this)[0].files;
@@ -195,14 +196,19 @@ function SetMainPhoto(photoUrl, photoId, isMain, button) {
     });
 }
 
+
+
+
 function DeletePhoto(photoUrl, photoId, isMain, button) {
-    debugger
+    //var spinner = $('<div style="color: #dbbe39" class="la-line-scale-party la-2x"><div></div><div></div><div></div><div></div><div></div></div>');
+
     var data = {
-        Id:parseInt(photoId),
-        UrL:photoUrl,
-        IsMain :Boolean(isMain),
+        Id: parseInt(photoId),
+        UrL: photoUrl,
+        IsMain: Boolean(isMain),
 
     };
+    debugger
     button.disabled = true;
     $.ajax({
         data: JSON.stringify(data),
@@ -214,7 +220,6 @@ function DeletePhoto(photoUrl, photoId, isMain, button) {
             debugger
             $('#upload').html(response)
             toastr.success('Photo Delete successfully');
-
         },
         error: function (xhr, Status, Error) {
             toastr.error(xhr.responseText)

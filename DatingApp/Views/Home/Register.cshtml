@@ -1,32 +1,156 @@
 ﻿@model DatingApp.DTOs.RegisterDto
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-<h4>RegisterDto</h4>
+<script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            endDate: new Date()
+        });
+    });
+</script>
+
+<script src="~/js/profileedit/register.js"></script>
 
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register" data-ajax="true" data-ajx-mehtod="post" data-ajax-url="@Url.Action("Register","Home")">
+    <div class="col-4 mx-auto">
+        <form id="frmRegister">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username"  class="control-label"></label>
-                <input asp-for="Username" type="text"  name="Username" class="form-control" />
+            <div>
+                <label asp-for="Username"></label>
+                <div class="input-group mb-1">
+                    <input asp-for="Username" type="text" name="Username" class="form-control" placeholder="Username" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password"  class="control-label"></label>
-                <input asp-for="Password"  type="password"name="Password" class="form-control" />
+
+            <div>
+                <label asp-for="KnownAs"></label>
+                <div class="input-group  mb-1">
+                    <input asp-for="KnownAs" type="text" name="KnownAs" class="form-control" placeholder="KnownAs" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user-tag"></span>
+                        </div>
+                    </div>
+                </div>
+                <span asp-validation-for="KnownAs" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="DateOfBirth"></label>
+                <div class="input-group  mb-1">
+                    <input asp-for="DateOfBirth"  name="DateOfBirth" class="form-control datepicker" placeholder="DateOfBirth" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-calendar-alt"></span>
+                        </div>
+                    </div>
+                </div>
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="City"></label>
+                <div class="input-group  mb-1">
+                    <input asp-for="City" name="City" class="form-control" placeholder="City" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-map-marker"></span>
+                        </div>
+                    </div>
+                </div>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Gender"></label>
+                <div class="input-group mb-1 border border-2 p-1">
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="Male" id="genderMale" />
+                        <label class="form-check-label" for="genderMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="Female" id="genderFemale" />
+                        <label class="form-check-label" for="genderFemale">Female</label>
+                    </div>
+                    @* <div class="input-group-prepend">
+                    <div class="input-group-text">
+                    <span class="fas fa-transgender-alt"></span>
+                    </div>
+                    </div> *@
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+
+            <div>
+                <label asp-for="Country"></label>
+                <div class="input-group  mb-1">
+                    <input asp-for="Country" type="text" name="Country" class="form-control" placeholder="Country" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-globe"></span>
+                        </div>
+                    </div>
+                </div>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+
+
+            <div>
+                <label asp-for="Password"></label>
+                <div class="input-group  mb-1">
+                    <input asp-for="Password" type="password" name="Password" class="form-control" placeholder="Password" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="submit" class="btn btn-primary" />
+            <div>
+                <label asp-for="ConfirmPassword"></label>
+                <div class="input-group  mb-1">
+                    <input asp-for="ConfirmPassword" type="password" name="ConfirmPassword" class="form-control" placeholder="ConfirmPassword" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-end ">
+                <input type="button" value="submit" onclick="submitRegisterForm()" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
 </div>
 
-<div class="mt-2">
-    <a asp-action="Index" class="btn btn-info btn-sm ">Back to List</a>
-</div>
+
+<script>
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        endDate: new Date()
+    });
+</script>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

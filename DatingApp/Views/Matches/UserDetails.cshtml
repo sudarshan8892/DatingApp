@@ -18,7 +18,7 @@
 <div class="row mt-4">
     <div class="col-3">
         <div class="card">
-            <img src="@Model.PhotoUrl" alt="@Model.KnownAs" class="card-img-top img-thumbnail" />
+            <img src="@(Model.PhotoUrl != null ? Model.PhotoUrl : "/image/sample_user_icon.png")" alt="@Model.KnownAs" class="card-img-top img-thumbnail" />
             <div class="card-body">
                 <div>
                     <strong>Location:</strong>
@@ -71,12 +71,12 @@
 
                 <div class="example">
                     <ul>
-                        <li>
-                            <img src="@Model.PhotoUrl">
-                        </li>
-                        <li>
-                            <img src="@Model.PhotoUrl">
-                        </li>
+                        @foreach (var photo in Model.Photos)
+                        {
+                            <li>
+                                <img src="@photo.Url">
+                            </li>
+                        }
                     </ul>
                 </div>
 
@@ -92,7 +92,9 @@
 
     </div>
 </div>
-/* JS for Photo gallery */
+<!--  JS for Photo gallery -->
 <script>
- $('.example').hSmartThumbnail();
+    $('.example').hSmartThumbnail();
 </script>
+
+<!-- #endregion -->

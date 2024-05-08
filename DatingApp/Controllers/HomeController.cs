@@ -18,9 +18,9 @@ namespace DatingApp.Controllers
         private readonly HttpClient _client;
         private readonly IMapper _Mapper;
         private readonly IUserService userService;
-        
 
-        public HomeController(HttpClient client, IMapper mapper, IUserService  user)
+
+        public HomeController(HttpClient client, IMapper mapper, IUserService user)
         {
             _client = client;
             _Mapper = mapper;
@@ -37,11 +37,28 @@ namespace DatingApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto register)
+        public async Task<IActionResult> Register( [FromBody]RegisterDto register)
         {
+            if (!ModelState.IsValid) return View(register);
 
             var response = await _client.PostAsJsonAsync("Account/register", register);
-            if (response.IsSuccessStatusCode) return RedirectToAction("Index", "Login");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var usersDTo = JsonConvert.DeserializeObject<UsersDTo>(await response.Content.ReadAsStringAsync());
+
+                var sessionData = new UsersDTo
+                {
+                    Token = usersDTo.Token,
+                    UserName = usersDTo.UserName,
+                    PhotoUrl = usersDTo?.PhotoUrl,
+                    KnownAs = usersDTo.KnownAs
+                };
+                byte[] sessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sessionData));
+                HttpContext.Session.Set("UserSessionData", sessionDataBytes);
+                return Ok(new { success = true });
+            }
+
             return RedirectToAction("Error");
         }
         public IActionResult Login() { return View(); }
@@ -53,17 +70,19 @@ namespace DatingApp.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var loginResult = JsonConvert.DeserializeObject<LoginDTo>(await response.Content.ReadAsStringAsync());
+                var usersDTo = JsonConvert.DeserializeObject<UsersDTo>(await response.Content.ReadAsStringAsync());
 
-                var sessionData = new LoginDTo
+                #region session
+                var sessionData = new UsersDTo
                 {
-                    Token = loginResult.Token,
-                    UserName = loginResult.UserName,
-                    PhotoUrl = loginResult?.PhotoUrl
+                    Token = usersDTo.Token,
+                    UserName = usersDTo.UserName,
+                    PhotoUrl = usersDTo?.PhotoUrl,
+                    KnownAs = usersDTo.KnownAs
                 };
-
                 byte[] sessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sessionData));
                 HttpContext.Session.Set("UserSessionData", sessionDataBytes);
+                #endregion
 
 
 
@@ -122,13 +141,13 @@ namespace DatingApp.Controllers
                 formData.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
             });
             var response = await _client.PostAsync("AppUsers/Add-photo", formData);
-            LoginDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
+            UsersDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
             if (LoginDto == null) return NotFound("UserSessionData session");
             var appUsers = await userService.GetUserByUserNameAsync(LoginDto.UserName, token);
 
             return PartialView("_PhotoPartial", appUsers);
 
-          
+
         }
         [HttpPost]
         public async Task<IActionResult> SetMainPhoto([FromBody] PhotoDTo photoDTo)
@@ -144,7 +163,7 @@ namespace DatingApp.Controllers
             if (response.IsSuccessStatusCode)
             {
                 #region session
-                LoginDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
+                UsersDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
                 if (LoginDto == null) return NotFound("UserSessionData session");
                 LoginDto.PhotoUrl = photoDTo.Url;
                 byte[] updatedSessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(LoginDto));
@@ -154,7 +173,7 @@ namespace DatingApp.Controllers
                 var appUsers = await userService.GetUserByUserNameAsync(LoginDto.UserName, token);
                 return PartialView("ProfileEdit", appUsers);
 
-              
+
             }
             return View();
         }
@@ -172,7 +191,7 @@ namespace DatingApp.Controllers
             if (response.IsSuccessStatusCode)
             {
                 #region session
-                LoginDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
+                UsersDTo LoginDto = SessionHelper.GetLoginDtoFromSession(HttpContext);
                 if (LoginDto == null) return NotFound("UserSessionData session");
                 #endregion
 

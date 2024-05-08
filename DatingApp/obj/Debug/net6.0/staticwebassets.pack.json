@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\CardView\\CardView.css"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\Image\\Sample_User_Icon.png",
+      "PackagePath": "staticwebassets\\Image\\Sample_User_Icon.png"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\Tabs\\DetailsTabs.css",
       "PackagePath": "staticwebassets\\Tabs\\DetailsTabs.css"
     },
@@ -65,6 +69,14 @@
       "PackagePath": "staticwebassets\\css\\all.min.css"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\bootstrap-datepicker.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap-datepicker.min.css"
+    },
+    {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\loaders.css",
       "PackagePath": "staticwebassets\\css\\loaders.css"
     },
@@ -85,8 +97,20 @@
       "PackagePath": "staticwebassets\\js\\Profileedit\\EditMembers.js"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Profileedit\\Register.js",
+      "PackagePath": "staticwebassets\\js\\Profileedit\\Register.js"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Profileedit\\UploadFile.js",
       "PackagePath": "staticwebassets\\js\\Profileedit\\UploadFile.js"
+    },
+    {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\bootstrap-datepicker.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap-datepicker.min.js"
+    },
+    {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\loadingoverlay.min.js",
+      "PackagePath": "staticwebassets\\js\\loadingoverlay.min.js"
     },
     {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\site.js",

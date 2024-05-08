@@ -16,7 +16,10 @@ namespace WebAPIDatingAPP.Helpers
                 .ForMember(destinationMember => destinationMember.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalcuateAge()));
             CreateMap<Photo, PhotoDTo>();
             CreateMap<MemberUpdateDTo, AppUsers>();
-          
+            CreateMap<RegisterDto, AppUsers>();
+            
+
+
         }
     }
 }

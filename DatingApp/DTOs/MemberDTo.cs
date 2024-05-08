@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using WebAPIDatingAPP.DATA;
 using WebAPIDatingAPP.Entities;
 
@@ -19,6 +20,24 @@ namespace DatingApp.DTOs
         public string Interests { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public List<PhotoDTo> Photos { get; set; } 
+        public List<PhotoDTo> Photos { get; set; }
+
+        public Pagination Pagination { get; set; }
+
+    }
+
+    public class Pagination
+    {
+        [JsonProperty("currentPage")]
+        public int CurrentPage { get; set; }
+
+        [JsonProperty("itemPerPage")]
+        public int ItemsPerPage { get; set; }
+
+        [JsonProperty("totelItem")]
+        public int TotalItems { get; set; }
+
+        [JsonProperty("totelPages")]
+        public int TotalPages { get; set; }
     }
 }
