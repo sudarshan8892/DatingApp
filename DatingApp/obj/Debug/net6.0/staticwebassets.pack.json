@@ -93,6 +93,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Filter\\filter.js",
+      "PackagePath": "staticwebassets\\js\\Filter\\filter.js"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Profileedit\\EditMembers.js",
       "PackagePath": "staticwebassets\\js\\Profileedit\\EditMembers.js"
     },

@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using DatingApp.DTOs;
 using DatingApp.Helpers;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 using WebAPIDatingAPP.Entities;
@@ -75,7 +76,20 @@ namespace WebAPIDatingAPP.DATA
             var query = _context.AppUsers.AsQueryable();
 
             query = query.Where(u => u.UserName != userParams.CurrentUserName);
-            query = query.Where(u => u.Gender != userParams.Gender);
+            query = query.Where(u => u.Gender == userParams.Gender);
+
+            var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
+            var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
+
+            query= query.Where(u=>u.DateOfBirth>= minDob &&  u.DateOfBirth<= maxDob);
+
+            query = userParams.OrderBy switch
+            {
+                "created" =>query.OrderByDescending(u=>u.Created),
+                _ =>query.OrderByDescending(u=>u.LastActive)
+
+            };
+
 
 
             return await PageList<MemberDTo>.CreateAsync(query.AsNoTracking()

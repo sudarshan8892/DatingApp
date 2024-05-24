@@ -1,6 +1,7 @@
 using AutoMapper;
 using DatingApp.Apiconfig;
 using DatingApp.Controllers;
+using DatingApp.Helpers;
 using DatingApp.Interfaces;
 using DatingApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,6 +37,7 @@ builder.Services.AddHttpClient<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenServices>();
 builder.Services.AddScoped<IRepository, UserRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<LogUserActivity>();
 
 builder.Services.Configure<CloudinarySetting>(builder.Configuration.GetSection("cloudinaryConnection"));
 

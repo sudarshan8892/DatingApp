@@ -35,7 +35,7 @@ namespace DatingApp.Controllers
                 userParams.Gender = CurrentUsers.Gender == "male" ? "female" : "male";
             }
             var user = (await _repository.GetMemberAsync(userParams));
-            Response.AddPaginationHeader(new PaginationHeader(user.CurrentPage, user.PageSize, user.TotalCount, user.TotalPage));
+            Response.AddPaginationHeader(new PaginationHeader(user.CurrentPage, user.PageSize, user.TotalCount, user.TotalPage ));
             return (Ok(user));
 
         }
