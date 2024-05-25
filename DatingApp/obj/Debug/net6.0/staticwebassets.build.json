@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PuDTrKASMGODtBeXlYfEGYzI5QFG4MfJl+0shDk0dB8=",
+  "Hash": "AMMJKb2yg2upOaw5LYJ9RBw7i/MlAz/8d6ziYApjMrA=",
   "Source": "DatingApp",
   "BasePath": "_content/DatingApp",
   "Mode": "Default",
@@ -300,6 +300,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Filter\\filter.js"
+    },
+    {
+      "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Filter\\iconify.min.js",
+      "SourceId": "DatingApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\",
+      "BasePath": "_content/DatingApp",
+      "RelativePath": "js/Filter/iconify.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Filter\\iconify.min.js"
     },
     {
       "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\loadingoverlay.min.js",

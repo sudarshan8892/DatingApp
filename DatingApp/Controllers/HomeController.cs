@@ -79,7 +79,8 @@ namespace DatingApp.Controllers
                     Token = usersDTo.Token,
                     UserName = usersDTo.UserName,
                     PhotoUrl = usersDTo?.PhotoUrl,
-                    KnownAs = usersDTo.KnownAs
+                    KnownAs = usersDTo.KnownAs,
+                    Gender=usersDTo.Gender
                 };
                 byte[] sessionDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sessionData));
                 HttpContext.Session.Set("UserSessionData", sessionDataBytes);

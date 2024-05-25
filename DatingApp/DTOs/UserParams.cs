@@ -15,7 +15,7 @@ namespace DatingApp.DTOs
 
         [JsonProperty("totelPages")]
         public int TotalPages { get; set; }
-        public int pageNumber { get; set; }
+        public int pageNumber { get; set; } = 1;
 
         public string Gender { get; set; }
         public int MinAge { get; set; } = 18;

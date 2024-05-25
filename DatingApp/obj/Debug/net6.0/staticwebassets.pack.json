@@ -97,6 +97,10 @@
       "PackagePath": "staticwebassets\\js\\Filter\\filter.js"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Filter\\iconify.min.js",
+      "PackagePath": "staticwebassets\\js\\Filter\\iconify.min.js"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Profileedit\\EditMembers.js",
       "PackagePath": "staticwebassets\\js\\Profileedit\\EditMembers.js"
     },
