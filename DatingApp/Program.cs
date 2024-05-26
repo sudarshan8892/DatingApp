@@ -1,6 +1,7 @@
 using AutoMapper;
 using DatingApp.Apiconfig;
 using DatingApp.Controllers;
+using DatingApp.DATA;
 using DatingApp.Helpers;
 using DatingApp.Interfaces;
 using DatingApp.Services;
@@ -38,6 +39,7 @@ builder.Services.AddScoped<ITokenService, TokenServices>();
 builder.Services.AddScoped<IRepository, UserRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<LogUserActivity>();
+builder.Services.AddScoped<ILikedRepository, LikesRepository>();
 
 builder.Services.Configure<CloudinarySetting>(builder.Configuration.GetSection("cloudinaryConnection"));
 

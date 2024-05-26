@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using DatingApp.Entities;
+using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 using WebAPIDatingAPP.DATA;
 using WebAPIDatingAPP.Extension;
 
@@ -25,11 +27,9 @@ namespace WebAPIDatingAPP.Entities
 
         public List<Photo>Photos{ get; set; }=new();
 
-        //public int GetAge()
-        //{
-        //    return DateOfBirth.CalcuateAge();
+        public ICollection<UserLike> LikedByUsers { get; set; }
+        public ICollection<UserLike> LikedUsers { get; set; }
 
-        //}
     }
 }
 

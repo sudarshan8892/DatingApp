@@ -1,4 +1,5 @@
-﻿
+﻿@using Humanizer
+
 @model DatingApp.DTOs.MemberDTo
 
 <script src="~/tabs/jquery.min.js"></script>
@@ -36,12 +37,18 @@
                 </div>
                 <div>
                     <strong>Last Active:</strong>
-                    <p>@Model.LastActive</p>
+
+                    @{
+                        var timeDifference = DateTime.Now - Model.LastActive;
+                        string formattedTime = timeDifference.Humanize();
+                    }
+
+                    <p>@formattedTime Ago</p>
                 </div>
 
                 <div>
                     <strong>Member Since:</strong>
-                    <p>@Model.Created</p>
+                    <p>@Model.Created.Humanize()</p>
                 </div>
             </div>
             <div class="card-footer">
@@ -84,10 +91,10 @@
             </div>
             <div id="photos" class="tabcontent">
 
-                <div class="row mb-3" id="upload" >
-                   
+                <div class="row mb-3" id="upload">
+
                     <partial name="_PhotoPartial" />
-                 
+
 
                 </div>
 

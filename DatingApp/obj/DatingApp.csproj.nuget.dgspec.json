@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[1.26.2, )"
             },
+            "Humanizer": {
+              "target": "Package",
+              "version": "[2.14.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[6.0.0, )"

@@ -37,15 +37,14 @@
                         @if (!string.IsNullOrEmpty(userName))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Matches" asp-action="Index">Matches</a>
+                                <a class="nav-link text-dark @(ViewContext.RouteData.Values["controller"]?.ToString() == "Matches" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Matches" asp-action="Index">Matches</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="Index">List</a>
+                                <a class="nav-link text-dark @(ViewContext.RouteData.Values["controller"]?.ToString() == "List" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="List" asp-action="Index">List</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Message</a>
+                                <a class="nav-link text-dark @(ViewContext.RouteData.Values["controller"]?.ToString() == "Message" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")" asp-area="" asp-controller="Message" asp-action="Index">Message</a>
                             </li>
-
 
                             <li class="nav-item btn-group d-flex">
                                 <img src="@(uri != null ? uri : "/image/sample_user_icon.png")" class="Nav-Bar-img" alt="user photo" />
@@ -68,13 +67,10 @@
                         }
                         else
                         {
-
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Login" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                             </li>
                         }
-
-
                     </ul>
                 </div>
             </div>
@@ -97,6 +93,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
 

@@ -27,7 +27,7 @@
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#">
+                                <a class="like-button" data-username="@item.UserName">
                                     <i class="fa fa-heart fa-2x"></i>
                                 </a>
                             </li>
@@ -95,4 +95,29 @@
             }
         });
     }
+</script>
+
+<script type="text/javascript">
+    $('.like-button').on('click', function (event) {
+        event.preventDefault();
+        var userName = $(this).data('username');
+        
+        $.ajax({
+            url: '@Url.Action("AddLike", "Matches")' + '?UserName=' + encodeURIComponent(userName),
+            type: 'POST',
+            success: function (data) 
+            {
+                if (data.success) 
+                {
+                    toastr.success('you have liked ' + data.username);
+                } else {
+                    toastr.error(data.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Error adding like: ' + error);
+            }
+        });
+    });
+
 </script>

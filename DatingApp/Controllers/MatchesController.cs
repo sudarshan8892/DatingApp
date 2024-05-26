@@ -12,7 +12,7 @@ namespace DatingApp.Controllers
         private readonly HttpClient _client;
         private readonly IMapper _mapper;
 
-        public MatchesController(HttpClient client, IMapper  mapper)
+        public MatchesController(HttpClient client, IMapper mapper)
         {
             _client = client;
             _mapper = mapper;
@@ -43,8 +43,8 @@ namespace DatingApp.Controllers
             }
             return View("Error");
         }
-      
-       
+
+
         public async Task<IActionResult> PartialView([FromBody] _UserParams userParams)
         {
             if (!TryGetToken(out string token))
@@ -86,11 +86,32 @@ namespace DatingApp.Controllers
                 var appUsers = JsonConvert.DeserializeObject<MemberDTo>(jsonString);
                 return View(appUsers);
             }
-            
+
 
             return View("Error");
 
         }
+        #region likes
+        public async Task<ActionResult> AddLike(string UserName)
+        {
+            if (!TryGetToken(out string token))
+                return View("Error");
+
+            _client.SetBearerToken(token);
+
+            var response = await _client.PostAsJsonAsync($"Likes/{UserName}", new { });
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Json(new { success = true, username = UserName });
+            }
+            else
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return Json(new { success = false, error = responseContent });
+            }
+        }
+        #endregion
     }
 
 }

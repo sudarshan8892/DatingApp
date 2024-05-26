@@ -1,4 +1,5 @@
-﻿@model DatingApp.DTOs.MemberDTo
+﻿@using Humanizer
+@model DatingApp.DTOs.MemberDTo
 
 @{
     ViewData["Title"] = "UserDetails";
@@ -30,12 +31,17 @@
                 </div>
                 <div>
                     <strong>Last Active:</strong>
-                    <p>@Model.LastActive</p>
+                    @{
+                        var timeDifference = DateTime.Now - Model.LastActive;
+                        string formattedTime = timeDifference.Humanize();
+                    }
+
+                    <p>@formattedTime ago</p>
                 </div>
 
                 <div>
                     <strong>Member Since:</strong>
-                    <p>@Model.Created</p>
+                    <p>@Model.Created.Humanize()</p>
                 </div>
             </div>
             <div class="card-footer">
@@ -46,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div class="col-8">
+    <div class="col-8"> 
 
         <div class="tabs-container">
             <div class="tabs">

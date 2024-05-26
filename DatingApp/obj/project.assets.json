@@ -10783,6 +10783,7 @@
     "net6.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 6.0.0",
       "CloudinaryDotNet >= 1.26.2",
+      "Humanizer >= 2.14.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.0",
@@ -10845,6 +10846,10 @@
           "CloudinaryDotNet": {
             "target": "Package",
             "version": "[1.26.2, )"
+          },
+          "Humanizer": {
+            "target": "Package",
+            "version": "[2.14.1, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

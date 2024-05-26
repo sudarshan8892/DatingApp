@@ -1,1 +1,40 @@
-﻿<h1 class="mt-3"> List comes here ....</h1>
+﻿@model  List<DatingApp.DTOs.LikedDto>
+<div class="text-center mt-3">
+    <h2>@(Model.Count > 0 && Model[0].Predicate == "Liked" ? "Members I liked" : "Members who like me")</h2>
+</div>
+<div class="container mt-3">
+    <div class="d-flex">
+        <div class="btn-group">
+            <button class="btn btn-primary"
+                    value="liked"
+                    name="Predicate"
+                    onclick="memberLike()">
+                    
+                Member I liked
+            </button>
+            <button class="btn btn-primary"
+                    value="likedBy"
+                    name="Predicate"
+                    onclick="memberLike()">
+
+                Member I liked
+            </button>
+        </div>
+    </div>
+
+
+
+    <div class="d-flex justify-content-center">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-2 mb-3">
+                <div class="card">
+                    <div class="card-img-wrapper">
+
+                    </div>
+                </div>
+            </div>
+        } 
+    </div>
+</div>

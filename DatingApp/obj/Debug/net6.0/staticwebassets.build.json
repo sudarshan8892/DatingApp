@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AMMJKb2yg2upOaw5LYJ9RBw7i/MlAz/8d6ziYApjMrA=",
+  "Hash": "TyKYyAEBL0Svn5z2kN/ut61ChbvKTnhZ3yr+GPW36m8=",
   "Source": "DatingApp",
   "BasePath": "_content/DatingApp",
   "Mode": "Default",
@@ -338,6 +338,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\loadingoverlay.min.js"
+    },
+    {
+      "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Matches\\matches.js",
+      "SourceId": "DatingApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\",
+      "BasePath": "_content/DatingApp",
+      "RelativePath": "js/Matches/matches.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Matches\\matches.js"
     },
     {
       "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\js\\Profileedit\\EditMembers.js",

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPIDatingAPP.DATA;
 
@@ -10,9 +11,10 @@ using WebAPIDatingAPP.DATA;
 namespace DatingApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240526080243_likes")]
+    partial class likes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -22,12 +24,12 @@ namespace DatingApp.Migrations
                     b.Property<int>("SourceUserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TargetUserId")
+                    b.Property<int>("TragetUserId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("SourceUserId", "TargetUserId");
+                    b.HasKey("SourceUserId", "TragetUserId");
 
-                    b.HasIndex("TargetUserId");
+                    b.HasIndex("TragetUserId");
 
                     b.ToTable("Likes");
                 });
@@ -120,7 +122,7 @@ namespace DatingApp.Migrations
 
                     b.HasOne("WebAPIDatingAPP.Entities.AppUsers", "TargetUser")
                         .WithMany("LikedByUsers")
-                        .HasForeignKey("TargetUserId")
+                        .HasForeignKey("TragetUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
