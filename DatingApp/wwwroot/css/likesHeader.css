@@ -1,0 +1,27 @@
+﻿.text-center {
+    text-align: center;
+}
+
+.mt-3 {
+    margin-top: 1.5rem;
+}
+
+h4 {
+    font-size: 1.8rem; /* Increase font size for emphasis */
+    color: #fff; /* Text color */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #ff3366, #ff6600); /* Gradient background with vibrant colors */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0.8rem 1.5rem; /* Increase padding for better visual balance */
+    display: inline-block; /* Ensure background covers text only */
+    border-radius: 10px; /* Add border radius for a softer look */
+    box-shadow: 0 4px 6px #ad0808; /* Add subtle shadow for depth */
+    transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
+}
+
+    h4:hover {
+        transform: scale(1.05); /* Scale up on hover for interactive feel */
+    }

@@ -1,13 +1,17 @@
 ﻿using DatingApp.Controllers;
 using DatingApp.DTOs;
 using DatingApp.Entities;
+using DatingApp.Extension;
+using DatingApp.Helpers;
 using DatingApp.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPIDatingAPP.Extension;
 using WebAPIDatingAPP.Interfaces;
 
 namespace DatingApp.APIControllers
 {
+    [Authorize]
     public class LikesController : BaseApiController
     {
         private readonly IRepository _userRepo;
@@ -22,7 +26,7 @@ namespace DatingApp.APIControllers
         [HttpPost("{UserName}")]
         public async Task<ActionResult> AddLike(string UserName)
         {
-            var sourceId = int.Parse(User.GetUserId());
+            var sourceId = (User.GetUserId());
             var likedUser = await _userRepo.GetUserByNameAsync(UserName);// case sensitive
             var sourceUser = await _likedRepo.GetUserWithLike(sourceId);
 
@@ -46,9 +50,11 @@ namespace DatingApp.APIControllers
             return BadRequest("Failed like to User");
         }
 
-        public async Task<ActionResult<IEnumerable<LikedDto>>> GetUserLikess( string predicate)
+        public async Task<ActionResult<PageList<LikedDto>>> GetUserLikess([FromQuery] LikesParams likesParams)
         {
-            var user = await _likedRepo.GetUserLike(predicate, int.Parse(User.GetUserId()));
+            likesParams.UserId = User.GetUserId();
+            var user = await _likedRepo.GetUserLike(likesParams);
+            Response.AddPaginationHeader(new PaginationHeader(user.CurrentPage, user.PageSize, user.TotalCount, user.TotalPage));
             return Ok(user);
         }
     }

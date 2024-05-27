@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TyKYyAEBL0Svn5z2kN/ut61ChbvKTnhZ3yr+GPW36m8=",
+  "Hash": "1i3HY6qvBsmcEAsynEhxbkZG+RB8k/0RWbcGBlhJfoo=",
   "Source": "DatingApp",
   "BasePath": "_content/DatingApp",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap-datepicker.min.css"
+    },
+    {
+      "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\likesHeader.css",
+      "SourceId": "DatingApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\",
+      "BasePath": "_content/DatingApp",
+      "RelativePath": "css/likesHeader.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\likesHeader.css"
     },
     {
       "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\loaders.css",

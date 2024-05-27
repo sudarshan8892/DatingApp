@@ -1,4 +1,5 @@
 ﻿@using Humanizer
+@using System.Globalization
 
 @model DatingApp.DTOs.MemberDTo
 
@@ -48,7 +49,7 @@
 
                 <div>
                     <strong>Member Since:</strong>
-                    <p>@Model.Created.Humanize()</p>
+                    <p>@Model.Created.ToString("MM-yy-yyyy", CultureInfo.InvariantCulture)</p>
                 </div>
             </div>
             <div class="card-footer">

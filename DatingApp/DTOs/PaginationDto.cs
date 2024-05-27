@@ -2,7 +2,7 @@
 
 namespace DatingApp.DTOs
 {
-    public class _UserParams
+    public class PaginationDto
     {
         [JsonProperty("currentPage")]
         public int CurrentPage { get; set; }
@@ -15,12 +15,5 @@ namespace DatingApp.DTOs
 
         [JsonProperty("totelPages")]
         public int TotalPages { get; set; }
-        public int pageNumber { get; set; } = 1;
-
-        public string Gender { get; set; }
-        public int MinAge { get; set; } = 18;
-        public int MaxAge { get; set; } = 99;
-
-        public string OrderBy { get; set; } = "LastActive";
     }
 }

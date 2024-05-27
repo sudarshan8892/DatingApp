@@ -1,0 +1,91 @@
+﻿@model DatingApp.Models.ViewModel
+
+<link href="~/cardview/cardview.css" rel="stylesheet" />
+<link href="/css/likesheader.css" rel="stylesheet" />
+
+<div class="text-center mt-3">
+<h4>@(Model.Predicate == "liked" ? "Members I liked" : "Members who like me")</h4>
+</div>
+<div class="row">
+
+    <div class="d-flex justify-content-center">
+
+        @foreach (var item in Model.likedDtos)
+        {
+            <div class="col-md-2 mb-3">
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <img src="@(item.PhotoUrl != null ? item.PhotoUrl : "/image/sample_user_icon.png")" alt="@item.KnownAs" class="card-img-top">
+
+                        <ul class="list-inline member-icons animate text-center">
+                            <li class="list-inline-item">
+                                <a href="@Url.Action("UserDetails", "Matches", new { username = item.UserName })">
+                                    <i class="fa fa-user fa-2x"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="like-button" data-username="@item.UserName">
+                                    <i class="fa fa-heart fa-2x"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-envelope fa-2x"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body p-1">
+                        <h5 class="card-title text-center mb-1">
+                            <i class="fa fa-user me-2"></i>
+                            @item.KnownAs, @item.Age
+                        </h5>
+                        <p class="card-text card-muted text-center">@item.City</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@if (Model.Pagination != null)
+{
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item @(Model.Pagination.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="#" onclick="loadPage(@(Model.Pagination.CurrentPage - 1))">Previous</a>
+                </li>
+                @for (var i = 1; i <= Model.Pagination.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.Pagination.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="#" onclick="loadPage(@i)">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.Pagination.CurrentPage == Model.Pagination.TotalPages ? "disabled" : "")">
+                    <a class="page-link" href="#" onclick="loadPage(@(Model.Pagination.CurrentPage + 1))">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+<script>
+    function loadPage(page) {
+       
+        var jsonData = {
+            Predicate: '@Model.Predicate',
+            pageNumber: page
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/List/partialViewLike',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            success: function (response) {
+                $('#viewPartial').html(response);
+            },
+            error: function (xhr) {
+                toastr.info(JSON.parse(xhr.responseText).error);
+            }
+        });
+    }
+</script>

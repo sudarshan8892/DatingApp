@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\likesHeader.css",
+      "PackagePath": "staticwebassets\\css\\likesHeader.css"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\loaders.css",
       "PackagePath": "staticwebassets\\css\\loaders.css"
     },

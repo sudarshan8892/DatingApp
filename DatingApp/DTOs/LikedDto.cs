@@ -10,7 +10,7 @@
 
         public string City { get; set; }
 
-        public string Predicate { get; set; } = "Liked";
+        public string Predicate { get; set; } = "liked";
 
 
     }

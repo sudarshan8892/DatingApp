@@ -1,40 +1,61 @@
-﻿@model  List<DatingApp.DTOs.LikedDto>
-<div class="text-center mt-3">
-    <h2>@(Model.Count > 0 && Model[0].Predicate == "Liked" ? "Members I liked" : "Members who like me")</h2>
+﻿@model DatingApp.Models.ViewModel
+<link href="~/cardview/cardview.css" rel="stylesheet" />
+<div>
 </div>
 <div class="container mt-3">
-    <div class="d-flex">
+    <div class="d-flex mb-1">
         <div class="btn-group">
-            <button class="btn btn-primary"
+            <button id="Liked" class="btn btn-primary ms-1 me-1"
                     value="liked"
                     name="Predicate"
-                    onclick="memberLike()">
-                    
-                Member I liked
-            </button>
-            <button class="btn btn-primary"
-                    value="likedBy"
-                    name="Predicate"
-                    onclick="memberLike()">
+                    onclick="memberLike(this)">
 
                 Member I liked
+            </button>
+            <button id="likedBy" class="btn btn-primary ms-1 me-1"
+                    value="likedBy"
+                    name="Predicate"
+                    onclick="memberLike(this)">
+
+                Members who like me
             </button>
         </div>
     </div>
-
-
-
-    <div class="d-flex justify-content-center">
-
-        @foreach (var item in Model)
-        {
-            <div class="col-md-2 mb-3">
-                <div class="card">
-                    <div class="card-img-wrapper">
-
-                    </div>
-                </div>
-            </div>
-        } 
+    <div id="viewPartial">
+        <Partial name="partialViewLike" />
     </div>
 </div>
+<script>
+    function memberLike(button) {
+        var jsonData = {
+            Predicate: $(button).val()
+        };
+        console.log(jsonData)
+        $.ajax({
+            type: 'POST',
+            url: '/List/partialViewLike',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            dataType: 'html',
+            
+            success: function (data) {
+                debugger
+                if (data) {
+                    debugger
+                    $('#viewPartial').html(data);
+
+                } else {
+                    toastr.error(data.error);
+                }
+
+            },
+            error: function (xhr, status, error) {
+
+                toastr.error('Error ' + error);
+
+            }
+        });
+    };
+
+</script>
+
