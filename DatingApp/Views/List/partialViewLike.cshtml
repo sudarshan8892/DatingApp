@@ -3,6 +3,7 @@
 <link href="~/cardview/cardview.css" rel="stylesheet" />
 <link href="/css/likesheader.css" rel="stylesheet" />
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <div class="text-center mt-3">
 <h4>@(Model.Predicate == "liked" ? "Members I liked" : "Members who like me")</h4>
 </div>
@@ -24,7 +25,7 @@
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="like-button" data-username="@item.UserName">
+                                <a class="like-button" id="like_button_like"  data-username="@item.UserName">
                                     <i class="fa fa-heart fa-2x"></i>
                                 </a>
                             </li>
@@ -88,4 +89,26 @@
             }
         });
     }
+</script>
+<script >
+    $('#like_button_like').on('click', function (event) {
+        event.preventDefault();
+        var userName = $(this).data('username');
+
+        $.ajax({
+            url: '@Url.Action("AddLike", "Matches")' + '?UserName=' + encodeURIComponent(userName),
+            type: 'POST',
+            success: function (data) {
+                if (data.success) {
+                    toastr.success('you have liked ' + data.username);
+                } else {
+                    toastr.error(data.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Error adding like: ' + error);
+            }
+        });
+    });
+
 </script>

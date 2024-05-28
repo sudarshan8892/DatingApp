@@ -14,6 +14,7 @@ namespace WebAPIDatingAPP.DATA
         }
         public DbSet<AppUsers> AppUsers { get; set; }
         public DbSet<UserLike> Likes { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +35,16 @@ namespace WebAPIDatingAPP.DATA
             .HasForeignKey(s => s.TargetUserId)
             .OnDelete(DeleteBehavior.NoAction);
 
+
+            modelBuilder.Entity<Message>()
+              .HasOne(s => s.Recipient)
+              .WithMany(l => l.MessagesReceived)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+              .HasOne(s => s.Sender)
+              .WithMany(l => l.MessageSent)
+              .OnDelete(DeleteBehavior.Restrict);
 
         }
 

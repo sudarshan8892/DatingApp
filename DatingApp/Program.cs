@@ -40,6 +40,7 @@ builder.Services.AddScoped<IRepository, UserRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<LogUserActivity>();
 builder.Services.AddScoped<ILikedRepository, LikesRepository>();
+builder.Services.AddScoped<IMessageReposository, MessageRepository>();
 
 builder.Services.Configure<CloudinarySetting>(builder.Configuration.GetSection("cloudinaryConnection"));
 
