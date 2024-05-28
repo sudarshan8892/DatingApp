@@ -1,1 +1,70 @@
-﻿<h1 class="mt-3"> massage come here....</h1>
+﻿@using Humanizer
+@model DatingApp.Models.ViewModel
+
+<div class="container mt-3">
+    <div class="d-flex mb-4">
+        <div class="btn-group">
+            <button id="Unread" class="btn btn-primary ms-1 me-1"
+                    value="Unread"
+                    name="Container"
+                    onclick="memberMessage(this)">
+                <i class="fa fa-envelope"></i>
+                Unread
+            </button>
+            <button id="Inbox" class="btn btn-primary ms-1 me-1"
+                    value="Inbox"
+                    name="Container"
+                    onclick="memberMessage(this)">
+                <i class="fa fa-envelope-open"></i>
+                Inbox
+            </button>
+            <button id="Outbox" class="btn btn-primary ms-1 me-1"
+                    value="Outbox"
+                    name="Container"
+                    onclick="memberMessage(this)">
+                <i class="fa fa-paper-plane"></i>
+                Outbox
+            </button>
+
+        </div>
+    </div>
+    <div id="noMessages" class="row" style="display: none;">
+        <h2>No messages</h2>
+    </div>
+
+    <div id="MessagesPartial">
+        <Partial name="PartialViewMessage" />
+    </div>
+</div>
+<script>
+    function memberMessage(button) {
+        var jsonData = {
+            Container: $(button).val()
+        };
+        console.log(jsonData)
+        $.ajax({
+            type: 'POST',
+            url: '/Message/PartialViewMessage',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            dataType: 'html',
+            success: function (data) {
+                debugger
+                if (data) {
+                    debugger
+                    $('#MessagesPartial').html(data);
+
+                } else {
+                    toastr.error(data.error);
+                }
+
+            },
+            error: function (xhr, status, error) {
+
+                toastr.error('Error ' + error);
+
+            }
+        });
+    };
+
+</script>

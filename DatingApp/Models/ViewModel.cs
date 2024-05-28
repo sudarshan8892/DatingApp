@@ -7,6 +7,8 @@ namespace DatingApp.Models
         public List<MemberDTo>Users { get; set; }
         public _UserParams Pagination { get; set; }
         public List<LikedDto> likedDtos{ get; set; }
+        public List<MessageDto> Message { get; set; }
+        public PaginationDto Paginations { get; set; }
         public string Predicate { get; set; } = "liked";
 
     }

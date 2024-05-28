@@ -1,0 +1,76 @@
+﻿
+@model DatingApp.Models.ViewModel
+@using Humanizer
+<div>
+</div>
+<div class="row">
+    <table class="table table-hover" style="cursor:pointer">
+        <thead>
+            <tr>
+                <th style="width:40%">Message</th>
+                <th style="width:20%">Form/To</th>
+                <th style="width:20%">Sent/Received</th>
+                <th style="width:20%"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var message in Model.Message)
+            {
+                <tr>
+                    <td>@message.Content</td>
+                    <td>
+                        @if (message.Container == "Outbox")
+                        {
+                            <div>
+                                <img class="img-circle rounded-circle me-2"
+                                     src="@(Model.Message != null ? message.RecipientPhotoUrl: "/image/sample_user_icon.png")"
+                                     alt="Recipient Photo" />
+                                <strong>@message.RecipientUserName</strong>
+                            </div>
+                        }
+                        @if (message.Container != "Outbox")
+                        {
+                            <div>
+                                <img class="img-circle rounded-circle me-2"
+                                     src="@(Model.Message != null ? message.SenderPhotoUrl: "/image/sample_user_icon.png")"
+                                     alt="Recipient Photo" />
+                                <strong>@message.SenderUserName</strong>
+                            </div>
+                        }
+                    </td>
+
+                    <td>
+                        <strong>
+                            @{
+                                var timeDifference = DateTime.Now - message.MessageSent;
+                                string formattedTime = timeDifference.Humanize();
+                            }
+                            @formattedTime
+                        </strong>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger ">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function filterMessages(button) {
+        const value = $(button).val();
+
+        $.ajax({
+            url: '@Url.Action("GetMessagesByStatus", "YourControllerName")',
+            type: 'GET',
+            data: { status: value },
+            success: function (messages) {
+            },
+            error: function (error) {
+                console.error('Error fetching messages:', error);
+            }
+        });
+    }
+</script>
