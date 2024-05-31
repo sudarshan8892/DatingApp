@@ -84,7 +84,11 @@ namespace DatingApp.Controllers
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var appUsers = JsonConvert.DeserializeObject<MemberDTo>(jsonString);
-                return View(appUsers);
+                var viewModel = new ViewModel
+                {
+                    member=appUsers
+                };
+                return View(viewModel);
             }
 
 

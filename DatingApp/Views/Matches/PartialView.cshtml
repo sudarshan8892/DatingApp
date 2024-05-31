@@ -1,11 +1,13 @@
 ﻿@model DatingApp.Models.ViewModel
+
 <script src="~/js/filter/iconify.min.js"></script>
+<link href="~/css/likesheader.css" rel="stylesheet" />
 <div class="text-center mt-1">
-    <h2 class="fst-italic mb-4">
+    <h4 class="fst-italic mb-4">
         <span class="iconify" data-icon="mdi:heart-multiple" data-inline="false"></span>
         <b>Your Perfect Match  @Model.Pagination.TotalItems Awaits!</b>
         <span class="iconify" data-icon="mdi:heart-multiple" data-inline="false"></span>
-    </h2>
+    </h4>
 </div>
 
 
@@ -32,7 +34,7 @@
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#">
+                                <a class="message-button" data-username="@item.UserName">
                                     <i class="fa fa-envelope fa-2x"></i>
                                 </a>
                             </li>
@@ -88,6 +90,7 @@
             data: JSON.stringify(jsonData),
             contentType: "application/json",
             success: function (response) {
+                debugger
                 $('#results').html(response);
             },
             error: function (xhr) {
@@ -121,3 +124,14 @@
     });
 
 </script>
+         
+<script>
+    $('.message-button').click(function () {
+        var username = $(this).data('username');
+
+        window.location.href = '/Matches/UserDetails?username=' + username + '&activetab=Messages';
+    });
+</script>
+
+
+               

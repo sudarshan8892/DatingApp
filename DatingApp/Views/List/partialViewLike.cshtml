@@ -82,6 +82,7 @@
             data: JSON.stringify(jsonData),
             contentType: "application/json",
             success: function (response) {
+                debugger
                 $('#viewPartial').html(response);
             },
             error: function (xhr) {

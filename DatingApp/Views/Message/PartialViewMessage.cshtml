@@ -1,5 +1,7 @@
-﻿
-@model DatingApp.Models.ViewModel
+﻿@model DatingApp.Models.ViewModel
+<script src="~/tabs/jquery.min.js"></script>
+
+<link href="~/css/tabledesign.css" rel="stylesheet" />
 @using Humanizer
 <div>
 </div>
@@ -17,10 +19,10 @@
 
             @foreach (var message in Model.Message)
             {
-                <tr>
+                <tr data-username="@(Model.Container == "Outbox" ? message.RecipientUserName : message.SenderUserName)">
                     <td>@message.Content</td>
                     <td>
-                        @if (message.Container == "Outbox")
+                        @if (Model.Container == "Outbox")
                         {
                             <div>
                                 <img class="img-circle rounded-circle me-2"
@@ -29,7 +31,7 @@
                                 <strong>@message.RecipientUserName</strong>
                             </div>
                         }
-                        @if (message.Container != "Outbox")
+                        @if (Model.Container != "Outbox")
                         {
                             <div>
                                 <img class="img-circle rounded-circle me-2"
@@ -50,27 +52,87 @@
                         </strong>
                     </td>
                     <td>
-                        <button class="btn btn-danger ">Delete</button>
+                        <button class="btn btn-danger delete-button"
+                                data-message-id="@message.Id">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+@if (Model.Pagination != null)
+{
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item @(Model.Pagination.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="#" onclick="loadPage(@(Model.Pagination.CurrentPage - 1))">Previous</a>
+                </li>
+                @for (var i = 1; i <= Model.Pagination.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.Pagination.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="#" onclick="loadPage(@i)">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.Pagination.CurrentPage == Model.Pagination.TotalPages ? "disabled" : "")">
+                    <a class="page-link" href="#" onclick="loadPage(@(Model.Pagination.CurrentPage + 1))">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
 
 <script>
-    function filterMessages(button) {
-        const value = $(button).val();
+    function loadPage(page) {
 
+        var jsonData = {
+            Container: '@Model.Container',
+            pageNumber: page
+        };
         $.ajax({
-            url: '@Url.Action("GetMessagesByStatus", "YourControllerName")',
-            type: 'GET',
-            data: { status: value },
-            success: function (messages) {
+            type: 'POST',
+            url: '/Message/PartialViewMessage',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            success: function (response) {
+                debugger
+                $('#MessagesPartial').html(response);
             },
-            error: function (error) {
-                console.error('Error fetching messages:', error);
+            error: function (xhr) {
+                toastr.info(JSON.parse(xhr.responseText).error);
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('tbody tr').click(function () {
+            var username = $(this).data('username');
+            window.location.href = '/Matches/UserDetails?username=' + username + '&activetab=Messages';
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.delete-button').click(function () {
+            var messageId = $(this).data('message-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '/Message/DeleteMeaasge?id=' + messageId,
+                success: function (response) {
+                    debugger
+                    toastr.success('Message deleted successfully');
+                },
+                error: function (xhr) {
+                    var errorMessage = xhr.responseText ? JSON.parse(xhr.responseText).error : 'Error deleting message';
+                    toastr.error(errorMessage);
+                }
+            });
+        });
+    });
 </script>

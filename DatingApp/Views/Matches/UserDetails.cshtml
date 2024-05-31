@@ -2,8 +2,8 @@
 
 @using System.Globalization
 
-@model DatingApp.DTOs.MemberDTo
 
+@model DatingApp.Models.ViewModel
 @{
     ViewData["Title"] = "UserDetails";
 }
@@ -22,20 +22,20 @@
 <div class="row mt-4">
     <div class="col-3">
         <div class="card">
-            <img src="@(Model.PhotoUrl != null ? Model.PhotoUrl : "/image/sample_user_icon.png")" alt="@Model.KnownAs" class="card-img-top img-thumbnail" />
+            <img src="@(Model.member.Photos != null ? Model.member.PhotoUrl : "/image/sample_user_icon.png")" alt="@Model.member.KnownAs" class="card-img-top img-thumbnail" />
             <div class="card-body">
                 <div>
                     <strong>Location:</strong>
-                    <p>@Model.City, @Model.Country</p>
+                    <p>@Model.member.City, @Model.member.Country</p>
                 </div>
                 <div>
                     <strong>Age:</strong>
-                    <p>@Model.Age</p>
+                    <p>@Model.member.Age</p>
                 </div>
                 <div>
                     <strong>Last Active:</strong>
                     @{
-                        var timeDifference = DateTime.Now - Model.LastActive;
+                        var timeDifference = DateTime.Now - Model.member.LastActive;
                         string formattedTime = timeDifference.Humanize();
                     }
 
@@ -44,7 +44,7 @@
 
                 <div>
                     <strong>Member Since:</strong>
-                    <p>@Model.Created.ToString("MM-yy-yyyy", CultureInfo.InvariantCulture)</p>
+                    <p>@Model.member.Created.ToString("MM-yy-yyyy", CultureInfo.InvariantCulture)</p>
                 </div>
             </div>
             <div class="card-footer">
@@ -55,32 +55,35 @@
             </div>
         </div>
     </div>
-    <div class="col-8"> 
+    <div class="col-8">
 
         <div class="tabs-container">
             <div class="tabs">
-                <div class="tab active" data-tab="@Model.KnownAs">About @Model.KnownAs </div>
+                <div class="tab active" data-tab="@Model.member.KnownAs">About @Model.member.KnownAs </div>
                 <div class="tab" data-tab="Interests">Interests</div>
                 <div class="tab" data-tab="Photo">Photos</div>
                 <div class="tab" data-tab="Messages">Messages</div>
 
             </div>
-            <div id="@Model.KnownAs" class="tabcontent active">
-                <h4 style="text-decoration:underline">Description</h4>
-                <p>@Model.Introduction</p>
-                <h4 style="text-decoration:underline">Looking For</h4>
-                <p>@Model.LookingFor</p>
+            <div id="@Model.member.KnownAs" class="tabcontent active">
+                <strong style="text-decoration:underline">
+                    Description
+                </strong>
+                <p>@Model.member.Introduction</p>
+                <strong style="text-decoration:underline">
+                    Looking For</strong>
+                <p>@Model.member.LookingFor</p>
 
             </div>
             <div id="Interests" class="tabcontent">
-                <h4>Interests</h4>
-                <p>@Model.Interests</p>
+                <strong>Interests</strong>
+                <p>@Model.member.Interests</p>
             </div>
             <div id="Photo" class="tabcontent">
 
                 <div class="example">
                     <ul>
-                        @foreach (var photo in Model.Photos)
+                        @foreach (var photo in Model.member.Photos)
                         {
                             <li>
                                 <img src="@photo.Url">
@@ -92,18 +95,81 @@
 
             </div>
             <div id="Messages" class="tabcontent">
-
-                <p>message will go here</p>
+                <Partial name="PartialViewMessageThread" />
             </div>
         </div>
-
-
-
     </div>
-</div>
-<!--  JS for Photo gallery -->
-<script>
-    $('.example').hSmartThumbnail();
-</script>
 
-<!-- #endregion -->
+
+    <!--  JS for Photo gallery -->
+    <script>
+        $('.example').hSmartThumbnail();
+    </script>
+
+    <!-- #endregion -->
+    <!   Js for Message---->
+    <script>
+        $(document).ready(function () {
+            $('.tabs .tab[data-tab="Messages"]').one('click', function () {
+                var userName = "@Model.member.KnownAs";
+                $.ajax({
+                    url: '/Message/PartialViewMessageThread?userName=' + userName,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#Messages').html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        var errorMessage = xhr.responseText ? JSON.parse(xhr.responseText).error : 'Error loading messages';
+                        toastr.info(errorMessage);
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.btn.btn-success').click(function () {
+                var userName = "@Model.member.KnownAs";
+
+                $('.tabcontent').removeClass('active');
+                $('.tab').removeClass('active');
+
+                
+                $('#Messages').addClass('active');
+                $('.tab[data-tab="Messages"]').addClass('active');
+
+               
+                $.ajax({
+                    url: '/Message/PartialViewMessageThread?userName=' + userName,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#Messages').html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        var errorMessage = xhr.responseText ? JSON.parse(xhr.responseText).error : 'Error loading messages';
+                        toastr.info(errorMessage);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var activeTab = urlParams.get('activetab');
+
+            if (activeTab === 'Messages') {
+                $('.tab').removeClass('active');
+                $('.tabcontent').removeClass('active');
+                $('[data-tab="Messages"]').addClass('active');
+                $('#Messages').addClass('active');
+                $('.tabs .tab[data-tab="Messages"]').click();
+               
+            }
+        });
+    </script>
+

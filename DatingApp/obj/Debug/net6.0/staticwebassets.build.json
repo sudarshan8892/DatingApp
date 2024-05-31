@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1i3HY6qvBsmcEAsynEhxbkZG+RB8k/0RWbcGBlhJfoo=",
+  "Hash": "X3KOPx+gTpoMZJS8LXyJKwbVS/puNNC84Z++CjyKOBs=",
   "Source": "DatingApp",
   "BasePath": "_content/DatingApp",
   "Mode": "Default",
@@ -169,6 +169,25 @@
       "OriginalItemSpec": "wwwroot\\css\\loaders.css"
     },
     {
+      "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\MessageChat.css",
+      "SourceId": "DatingApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\",
+      "BasePath": "_content/DatingApp",
+      "RelativePath": "css/MessageChat.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\MessageChat.css"
+    },
+    {
       "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\site.css",
       "SourceId": "DatingApp",
       "SourceType": "Discovered",
@@ -186,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\tableDesign.css",
+      "SourceId": "DatingApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\",
+      "BasePath": "_content/DatingApp",
+      "RelativePath": "css/tableDesign.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\tableDesign.css"
     },
     {
       "Identity": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\Theme.css",

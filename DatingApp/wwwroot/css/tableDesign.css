@@ -1,0 +1,54 @@
+﻿/* General Styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    .table th,
+    .table td {
+        padding: 8px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    /* Header Styles */
+    .table thead th {
+        background-color: #d1ecf1; /* Light Gray */
+        font-weight: bold;
+    }
+
+    /* Row Styles */
+    .table tbody tr:hover {
+        background-color: #f0f0f0; /* Lighter Gray on Hover */
+    }
+
+    /* Cell Styles */
+    .table td {
+        border-bottom: 1px solid #dee2e6; /* Light Gray */
+    }
+
+    /* Form/To and Sent/Received Column Styles */
+    .table .form-to-column,
+    .table .sent-received-column {
+        width: 20%;
+    }
+
+/* Button Styles */
+.btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 4px;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545; /* Red */
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Darker Red on Hover */
+        border-color: #bd2130;
+    }

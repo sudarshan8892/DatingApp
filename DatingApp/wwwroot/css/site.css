@@ -34,3 +34,6 @@ html {
 
 
 
+.like-button, .message-button {
+    cursor: pointer;
+}

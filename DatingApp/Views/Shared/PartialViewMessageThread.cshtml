@@ -1,0 +1,108 @@
+﻿@using Humanizer
+ @model DatingApp.Models.ViewModel
+<link href="~/css/likesheader.css" rel="stylesheet" />
+<link href="~/css/messagechat.css" rel="stylesheet" />
+<div class="card">
+    <div class="card-body">
+       
+            <div class="chat">
+                @if (Model.MessagesThread != null) 
+                {
+                    @foreach (var MessageThread in Model.MessagesThread)
+                    {
+                        <div class="chat-message @(MessageThread.SenderUserName != Model.userName ? "sent" : "received")">
+                            <div class="chat-img">
+                                <img class="rounded-circle" src="@MessageThread.SenderPhotoUrl" alt="image of user" />
+                            </div>
+                            <div class="chat-content">
+                                <div class="header">
+                                <span class="message-time">
+                                    <i class="fa fa-clock-o"></i>
+                                    @{
+                                        var timeDifference = DateTime.Now - MessageThread.MessageSent;
+                                        string formattedTime = timeDifference.Humanize();
+                                            @formattedTime
+                                    }
+                                </span>
+                                    @if (MessageThread.SenderUserName != Model.userName)
+                                    {
+                                        <span class="message-status @(MessageThread.DateRead.HasValue ? "read" : "unread")">
+                                            @((MessageThread.DateRead.HasValue ? "Read" : "Unread"))
+                                        </span>
+                                    }
+                                </div>
+                                <p>@MessageThread.Content</p>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No messages available</p>
+                }
+            </div>
+
+       
+    </div>
+    <div class="card-footer" mt-2>
+        <form id="messageForm" onsubmit="return false;">
+            <div class="input-group">
+                <input type="text"
+                    name="Content"
+                    id="messageContent" 
+                    class="form-control input-sm" 
+                    placeholder="Send a private message" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary"
+                    id="sendButton" 
+                    onclick="sendMessage()" 
+                    type="submit"
+                    disabled>Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('#messageContent').on('input', function () {
+            var content = $(this).val().trim();
+            $('#sendButton').prop('disabled', content === '');
+        });
+    });
+
+    var sendMessage = function () {
+        var content = $('#messageContent').val();
+
+     
+        if (content.trim() === '') {
+            toastr.info('Message cannot be empty');
+            return;
+        }
+
+        var jsonData = {
+            Content: content,
+            RecipientUserName: '@Model.userName',
+
+
+        };
+        $('#sendButton').prop('disabled', true);
+
+        console.log(jsonData);
+        $.ajax({
+            type: 'POST',
+            url: '/Message/CreateMeaasge',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            success: function (response) {
+                $('#messageContent').val('');
+                $('#Messages').html(response);
+            },
+            error: function (xhr) {
+                var errorMessage = xhr.responseText ? JSON.parse(xhr.responseText).error : 'Error loading messages';
+                toastr.info(errorMessage);
+            }
+        });
+    }
+</script>

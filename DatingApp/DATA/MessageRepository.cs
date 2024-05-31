@@ -41,9 +41,9 @@ namespace DatingApp.DATA
 
             query = messageParms.Container switch
             {
-                "Inbox" => query.Where(u => u.RecipientUserName == messageParms.UserName),
-                "Outbox" => query.Where(u => u.SenderUserName == messageParms.UserName),
-                _ => query.Where(u => u.RecipientUserName == messageParms.UserName && u.DateRead == null)
+                "Inbox" => query.Where(u => u.RecipientUserName == messageParms.UserName && u.RecipientDeleted==false),
+                "Outbox" => query.Where(u => u.SenderUserName == messageParms.UserName&& u.SenderDeleted==false),
+                _ => query.Where(u => u.RecipientUserName == messageParms.UserName &&u.RecipientDeleted==false && u.DateRead == null)
 
             };
             var message = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
@@ -59,12 +59,12 @@ namespace DatingApp.DATA
                 .Include(u => u.Recipient)
                 .ThenInclude(p => p.Photos)
                 .Where(
-                m => m.RecipientUserName == CurrentUserName.ToLower() &&
+                m => m.RecipientUserName == CurrentUserName.ToLower() && m.RecipientDeleted == false &&
                 m.SenderUserName == RecipientUserName.ToLower() ||
-                m.RecipientUserName == RecipientUserName.ToLower() &&
+                m.RecipientUserName == RecipientUserName.ToLower() && m.SenderDeleted== false &&
                 m.SenderUserName == CurrentUserName.ToLower()
 
-                ).OrderByDescending(m => m.MessageSent)
+                ).OrderBy(m => m.MessageSent)
                 .ToListAsync();
 
 

@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\Tabs\\jquery.min.js"
     },
     {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\MessageChat.css",
+      "PackagePath": "staticwebassets\\css\\MessageChat.css"
+    },
+    {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\Theme.css",
       "PackagePath": "staticwebassets\\css\\Theme.css"
     },
@@ -87,6 +91,10 @@
     {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\tableDesign.css",
+      "PackagePath": "staticwebassets\\css\\tableDesign.css"
     },
     {
       "Id": "D:\\DatingApp\\DatingApp\\DatingApp\\wwwroot\\css\\toastr.min.css",

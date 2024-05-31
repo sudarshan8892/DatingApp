@@ -60,10 +60,32 @@ namespace DatingApp.APIControllers
         }
 
         [HttpGet("Thread/{UserName}")]
-        public async Task<ActionResult<IEnumerable<MessageDto>>>GetMessageThread( string UserName)
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string UserName)
         {
             var CurrentUserName = User.GetUserName();
-            return Ok( await _message.GetMessageThread(CurrentUserName, UserName));
+            return Ok(await _message.GetMessageThread(CurrentUserName, UserName));
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult>DeleteMeaasge(int id)
+        {
+            var userName = User.GetUserName();
+
+            var Message = await _message.GetMessage(id);
+
+            if(Message.SenderUserName !=userName && Message.RecipientUserName !=userName)
+                return Unauthorized();
+
+            if (Message.SenderUserName == userName) Message.SenderDeleted = true;
+            if (Message.RecipientUserName == userName) Message.RecipientDeleted = true;
+
+            if(Message.RecipientDeleted&& Message.SenderDeleted)
+            {
+                _message.DeleteMessage(Message);
+            }
+
+            if (await _repository.SaveAllAsysc()) return Ok();
+
+            return BadRequest("Problem deleting the Message!");
         }
     }
 }
