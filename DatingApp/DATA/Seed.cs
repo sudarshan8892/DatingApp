@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -9,9 +10,9 @@ namespace WebAPIDatingAPP.DATA
 {
     public class Seed
     {
-        public static async Task SeedUsers(DataContext context)
+        public static async Task SeedUsers(UserManager<AppUsers> userManager)
         {
-            if (await context.AppUsers.AnyAsync()) return;
+            if (await userManager.Users.AnyAsync()) return;
             var users = await File.ReadAllTextAsync("DATA/UserSeedData.json");
             var options = new JsonSerializerOptions
             {
@@ -21,15 +22,14 @@ namespace WebAPIDatingAPP.DATA
             var appusers = JsonSerializer.Deserialize<List<AppUsers>>(users, options);
             foreach (var user in appusers)
             {
-                using var hmac = new HMACSHA512();
+                
 
                 user.UserName = user.UserName.ToLower();
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Password"));
-                user.PasswordSalt = hmac.Key;
 
-                context.AppUsers.Add(user);
+
+                await userManager.CreateAsync(user, "Shetty8892&&");
             }
-            await context.SaveChangesAsync();
+           
 
         }
     }

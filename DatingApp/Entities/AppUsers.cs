@@ -1,4 +1,5 @@
 ﻿using DatingApp.Entities;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using WebAPIDatingAPP.DATA;
@@ -6,13 +7,9 @@ using WebAPIDatingAPP.Extension;
 
 namespace WebAPIDatingAPP.Entities
 {
-    public class AppUsers
+    public class AppUsers:IdentityUser<int>
     {
 
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; }   
-        public byte[] PasswordSalt { get; set; }
         [JsonConverter(typeof(DateOnlyConverter))]
         public DateOnly DateOfBirth { get; set; }
         public string KnownAs { get; set; }
@@ -33,7 +30,7 @@ namespace WebAPIDatingAPP.Entities
         public ICollection<Message> MessagesReceived { get; set; }
 
 
-
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }
 

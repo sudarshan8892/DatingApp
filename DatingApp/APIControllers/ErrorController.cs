@@ -24,7 +24,7 @@ namespace DatingApp.Controllers
         [HttpGet("not-Found")]
         public ActionResult<AppUsers> GetNotFound()
         {
-            var input = _contxext.AppUsers.Find(-1);
+            var input = _contxext.Users.Find(-1);
 
             if (input == null) return NotFound();
             return input;
@@ -32,7 +32,7 @@ namespace DatingApp.Controllers
         [HttpGet("Server-Error")]
         public ActionResult<string> GetSereverError()
         {
-            var input = _contxext.AppUsers.Find(-1);
+            var input = _contxext.Users.Find(-1);
             var returnting = input.ToString();
             return returnting;
 

@@ -1,15 +1,17 @@
 using AutoMapper;
 using DatingApp.Apiconfig;
-using DatingApp.Controllers;
 using DatingApp.DATA;
+using DatingApp.Entities;
 using DatingApp.Helpers;
 using DatingApp.Interfaces;
 using DatingApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebAPIDatingAPP.DATA;
+using WebAPIDatingAPP.Entities;
 using WebAPIDatingAPP.Helpers;
 using WebAPIDatingAPP.Interfaces;
 using WebAPIDatingAPP.Middleware;
@@ -48,6 +50,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSession();
 
+builder.Services.AddIdentityCore<AppUsers>(options =>
+{
+    options.Password.RequireNonAlphanumeric = false;
+})
+.AddRoles<AppRole>()
+.AddRoleManager<RoleManager<AppRole>>()
+.AddEntityFrameworkStores<DataContext>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -60,6 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 
 });
+
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
@@ -77,8 +88,9 @@ var service = scope.ServiceProvider;
 try
 {
     var context = service.GetRequiredService<DataContext>();
+    var userManager = service.GetRequiredService<UserManager<AppUsers>>();
     await context.Database.MigrateAsync();
-    await Seed.SeedUsers(context);
+      await Seed.SeedUsers(userManager);
 }
 catch (Exception ex)
 {

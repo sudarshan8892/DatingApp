@@ -23,19 +23,19 @@ namespace WebAPIDatingAPP.DATA
 
         public async Task<AppUsers> GetUserByIdAsync(int Id)
         {
-            return await _context.AppUsers.FindAsync(Id);
+            return await _context.Users.FindAsync(Id);
         }
 
         public async Task<AppUsers> GetUserByNameAsync(string Name)
         {
-            return await _context.AppUsers
+            return await _context.Users
                 .Include(photo => photo.Photos)
                 .SingleOrDefaultAsync(x => x.UserName == Name);
         }
 
         public async Task<IEnumerable<AppUsers>> GetUsersAsysc()
         {
-            return await _context.AppUsers
+            return await _context.Users
                 .Include(photo => photo.Photos).
                 ToListAsync();
         }
@@ -63,7 +63,7 @@ namespace WebAPIDatingAPP.DATA
             //})
             //.SingleOrDefaultAsync();
 
-            return await _context.AppUsers.Where(a => a.UserName == Name)
+            return await _context.Users.Where(a => a.UserName == Name)
                 .ProjectTo<MemberDTo>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
 
@@ -73,7 +73,7 @@ namespace WebAPIDatingAPP.DATA
 
         public async Task<PageList<MemberDTo>> GetMemberAsync(UserParams userParams)
         {
-            var query = _context.AppUsers.AsQueryable();
+            var query = _context.Users.AsQueryable();
 
             query = query.Where(u => u.UserName != userParams.CurrentUserName);
             query = query.Where(u => u.Gender == userParams.Gender);

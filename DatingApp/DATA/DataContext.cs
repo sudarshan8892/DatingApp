@@ -1,24 +1,39 @@
 ﻿using DatingApp.Entities;
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 using WebAPIDatingAPP.Entities;
 
 namespace WebAPIDatingAPP.DATA
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<AppUsers, AppRole, int,
+        IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
+        IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DataContext(DbContextOptions option) : base(option)
         {
 
         }
-        public DbSet<AppUsers> AppUsers { get; set; }
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AppUsers>()
+
+               .HasMany(l => l.UserRoles)
+               .WithOne(s => s.User)
+                .HasForeignKey(s => s.UserId)
+               .IsRequired();
+
+
+            modelBuilder.Entity<AppRole>()
+            .HasMany(l => l.UserRoles)
+            .WithOne(s => s.Role)
+            .HasForeignKey(s => s.RoleId)
+            .IsRequired();
 
             modelBuilder.Entity<UserLike>()
             .HasKey(k => new { k.SourceUserId, k.TargetUserId });
